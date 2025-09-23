@@ -1,0 +1,4 @@
+export enum InteractionStatusType {
+  REQUEST_ACCEPTED = "REQUEST_ACCEPTED",
+  REQUEST_DECLINED = "REQUEST_DECLINED",
+}
