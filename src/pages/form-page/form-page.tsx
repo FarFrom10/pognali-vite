@@ -1,27 +1,15 @@
-import { useCompanionsQuery } from '../../hooks/api/use-companions-query';
-import { useCountriesQuery } from '../../hooks/api/use-countires-query';
+import MultiStepForm from '../../components/multi-step-form/multi-step-form';
+import styles from './form-page.module.css';
 
 function FormPage() {
-  //Код для теста api-запросов
-  const { data, isLoading, isError } = useCountriesQuery();
-  const { data: compsData, isLoading: isCompsLoading, isError: isCompsError } = useCompanionsQuery();
-  console.log(compsData);
-  if (isLoading) {
-    return <p>Загрузка...</p>;
-  }
-  if (isError) {
-    return <p>Ошибка!</p>;
-  }
-
-  console.log(data);
-
   return (
-    <div>
-      {data && Object.entries(data.flags).map(([country, flag]) => (
-        <li key={country}>
-          {flag} {country}
-        </li>
-      ))}
+    <div className="container">
+      <main>
+        <div className={styles.fromWrapper}>
+          <h2 className={styles.title}>Добавить план:</h2>
+          <MultiStepForm/>
+        </div>
+      </main>
     </div>
   );
 }

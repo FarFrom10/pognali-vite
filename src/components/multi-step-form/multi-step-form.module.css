@@ -1,0 +1,81 @@
+.form {
+  background-color: #fff;
+  border-radius: 60px;
+  padding: 100px 160px;
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #E1E3E9;
+  padding-bottom: 55px;
+}
+.titles {
+  display: flex;
+  gap: 33px;
+  flex-direction: column;
+  max-width: 660px;
+}
+.titles p {
+  color: #444444;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 29px 34px;
+  border-radius: 20px;
+  background-color: #A8D2F4;
+  color: #1D2E5B;
+  border: none;
+
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+.stepsList {
+  display: flex;
+  gap: 27px;
+  flex-direction: column;
+}
+
+.stepItem {
+  color:  #666666;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 11%;
+  text-transform: uppercase;
+}
+.stepItem::marker {
+  color: #BCC1CE;
+}
+
+.activeStep{
+  color: #000000;
+}
+.activeStep::marker {
+  color: #1D2E5B;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  color: #1D2E5B;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 36px;
+  letter-spacing: 0%;
+}
