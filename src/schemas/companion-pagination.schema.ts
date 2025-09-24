@@ -1,4 +1,4 @@
-import { Companion } from "./companion.schema";
+import { Companion } from './companion.schema';
 
 export interface CompanionPagination {
   entities: Companion[];

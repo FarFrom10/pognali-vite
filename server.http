@@ -1,0 +1,31 @@
+@host = http://localhost:3001
+
+### Получение списка стран
+GET {{host}}/api/countries HTTP/1.1
+
+### Получение списка компаньонов (по умолчанию)
+GET {{host}}/api/companions?limit=5&page=1 HTTP/1.1
+
+### Фильтрация компаньонов по странам
+GET {{host}}/api/companions?countries=USA,CANADA,JAPAN HTTP/1.1
+
+### Фильтрация по уровню (например, от 10 до 50)
+GET {{host}}/api/companions?minLevel=10&maxLevel=50 HTTP/1.1
+
+### Фильтрация по континенту (ASIA, AMERICA, EUROPE, ISLANDS)
+GET {{host}}/api/companions?continents=EUROPE HTTP/1.1
+
+### Фильтрация по хобби (FITNESS, BEACH, SPORTS, PHOTOGRAPHY, GAMES, CAREER)
+GET {{host}}/api/companions?hobbies=GAMES,PHOTOGRAPHY HTTP/1.1
+
+### Фильтрация по музыке (HEAVY_ROCK, RUSSIAN_RAP, EURODANCE)
+GET {{host}}/api/companions?musics=HEAVY_ROCK,RUSSIAN_RAP HTTP/1.1
+
+### Фильтрация по транспорту (AIRPLANE, BUS, BICYCLE, WALKING)
+GET {{host}}/api/companions?transportType=AIRPLANE,BICYCLE HTTP/1.1
+
+### Фильтрация по еде (HEALTHY, SMOOTHIE, AVOCADO, VEGETARIAN, JAPANESE, ITALIAN)
+GET {{host}}/api/companions?foods=JAPANESE,ITALIAN HTTP/1.1
+
+### Фильтрация по нескольким параметрам сразу
+GET {{host}}/api/companions?minLevel=5&maxLevel=20&countries=JAPAN,GERMANY&hobbies=FITNESS&musics=EURODANCE&transportType=WALKING&foods=HEALTHY HTTP/1.1
