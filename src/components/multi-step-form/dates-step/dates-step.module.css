@@ -1,0 +1,65 @@
+.controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 0;
+}
+
+.counters {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.hiddenCheckbox {
+  display: none; /* прячем стандартный чекбокс */
+}
+
+.customCheckbox {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border: 1px solid #CBCED9;
+  border-radius: 6px;
+  display: inline-block;
+  position: relative;
+}
+
+.customCheckbox::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.hiddenCheckbox:checked + .customCheckbox::after {
+  display: block;
+  left: 10px;
+  top: 6px;
+  width: 11px;
+  height: 18px;
+  border: solid #161C35;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+
+.checkboxText {
+  color: #1D2E5B;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 10%;
+  text-transform: uppercase;
+}

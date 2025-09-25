@@ -1,0 +1,32 @@
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 25px;
+  border: 1px solid #CBCED9;
+  border-radius: 4px;
+  width: 180px;
+}
+
+.controls span{
+  color: #1D2E5B;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 18px;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+}
+.controls button{
+  cursor: pointer;
+  color: #CCCCCC;
+  font-size: 30px;
+  background-color: transparent;
+  border: none;
+}

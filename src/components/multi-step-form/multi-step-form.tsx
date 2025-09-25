@@ -2,10 +2,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useStep } from 'usehooks-ts';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import DatesStep from './dates-step/dates-step';
 import { FormStepName } from '../../const/enum';
 import styles from './multi-step-form.module.css';
 import { formStepText } from '../../const/const';
+import { FormValues } from '../../types/form';
+import DatesStep from './dates-step/dates-step';
 
 const schema = yup.object({
   peopleAmount: yup
@@ -20,6 +21,11 @@ const schema = yup.object({
     .min(2, 'Минимум 2 дня')
     .max(31, 'Максимум 31 день')
     .required('Это обязательное поле'),
+  isChildrenAllowed: yup
+    .boolean()
+    .required('Это обязательное поле'),
+  // isChildrenAllowed: yup.boolean().required(),
+
   // startDate: yup.string().nullable(),
   // endDate: yup.string().nullable(),
   // countries: yup.array().of(yup.string()),
@@ -30,20 +36,11 @@ const schema = yup.object({
 function MultiStepForm() {
   const steps = Object.values(FormStepName);
 
-  type FormValues = {
-    peopleAmount: number;
-    duration: number;
-    // startDate: string | null;
-    // endDate: string | null;
-    // countries: string[];
-    // tags: string[];
-    // comments: string;
-  };
-
   const methods = useForm<FormValues>({
     defaultValues: {
       peopleAmount: 1,
       duration: 2,
+      isChildrenAllowed: false,
     },
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -91,7 +88,7 @@ function MultiStepForm() {
           </ul>
         </div>
 
-        {step === 0 && <DatesStep />}
+        {step === 1 && <DatesStep />}
         {/* {step === 1 && <AddressStep />}
         {step === 2 && <ConfirmationStep data={methods.getValues()} />} */}
 
