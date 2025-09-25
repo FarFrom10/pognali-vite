@@ -1,28 +1,52 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useStep } from 'usehooks-ts';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import DatesStep from './dates-step/dates-step';
 import { FormStepName } from '../../const/enum';
 import styles from './multi-step-form.module.css';
 import { formStepText } from '../../const/const';
 
-function MultiStepForm() {
-  type FormValues = {
-    name: string;
-    email: string;
-    address: string;
-    cardNumber: string;
-  }
+const schema = yup.object({
+  peopleAmount: yup
+    .number()
+    .typeError('Укажите количество попутчиков')
+    .min(1, 'Минимум 1 человек')
+    .max(10, 'Максимум 10 человек')
+    .required('Это обязательное поле'),
+  duration: yup
+    .number()
+    .typeError('Укажите длительность поездки')
+    .min(2, 'Минимум 2 дня')
+    .max(31, 'Максимум 31 день')
+    .required('Это обязательное поле'),
+  // startDate: yup.string().nullable(),
+  // endDate: yup.string().nullable(),
+  // countries: yup.array().of(yup.string()),
+  // tags: yup.array().of(yup.string()),
+  // comments: yup.string(),
+});
 
+function MultiStepForm() {
   const steps = Object.values(FormStepName);
+
+  type FormValues = {
+    peopleAmount: number;
+    duration: number;
+    // startDate: string | null;
+    // endDate: string | null;
+    // countries: string[];
+    // tags: string[];
+    // comments: string;
+  };
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      name: '',
-      email: '',
-      address: '',
-      cardNumber: '',
+      peopleAmount: 1,
+      duration: 2,
     },
     mode: 'onChange',
+    resolver: yupResolver(schema),
   });
 
   const [step, {
