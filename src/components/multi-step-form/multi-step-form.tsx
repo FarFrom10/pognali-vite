@@ -57,6 +57,7 @@ function MultiStepForm() {
 
   const onSubmit = methods.handleSubmit((data) => {
     if (step < steps.length) {
+      console.log(data);
       goToNextStep();
     } else {
       // alert(`Форма отправлена: ${ JSON.stringify(data, null, 2)}`);

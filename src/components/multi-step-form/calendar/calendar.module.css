@@ -1,13 +1,11 @@
 .calendarWrapper {
   background: #ffffff;
   /* padding: 16px; */
-  padding-bottom: 44px;
   width: 100%;
   box-sizing: border-box;
   border-top: 1px solid #E5E7EF;
   font-family: inherit;
 }
-
 
 /* Root контейнер */
 .root {
@@ -15,14 +13,23 @@
   font-family: inherit;
 }
 
-/* Month */
 .month {
-  /* padding: 4px 0 0 0; */
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* две кнопки + заголовок по центру */
+  grid-template-rows: auto 1fr; /* первая строка для навигации, вторая — для таблицы */
+  align-items: center;
+  padding-top: 25px;
+}
+
+.month > :nth-child(4) {
+  grid-column: 1 / -1; /* таблица растягивается на всю ширину */
 }
 
 .monthGrid {
+  margin-top: 25px;
   width: 100%;
   border-collapse: collapse;
+  border-top: 1px solid #E1E3E9;
 }
 
 .monthCaption {
@@ -39,19 +46,25 @@
   font-size: 36px;
   line-height: 36px;
   letter-spacing: 0%;
+
+  text-transform: capitalize;
 }
 
 /* Weekdays header */
 .weekdays {
   display: table-row;
+  text-transform: capitalize;
 }
 
 .weekday {
-  padding: 8px 0;
-  text-align: center;
-  color: #6b7280;
-  font-weight: 600;
-  font-size: 12px;
+  padding: 18px 17px;
+  text-align: left;
+  color: #444444;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 0%;
 }
 
 /* Week (row of days) */
@@ -67,80 +80,95 @@
 
 /* Day button */
 .dayButton {
-  display: block;
+  position: relative;
+  display: flex;
   width: 100%;
-  height: 44px;
-  line-height: 44px;
-  text-align: center;
-  margin: 0;
+  height: 70px;
+  text-align: left;
   border-radius: 0;
-  font-weight: 600;
-  font-size: 14px;
-  color: #111827;
+  border: 1px solid #E1E3E9;
+  border-collapse: collapse;
+  color: #444444;
   cursor: pointer;
   box-sizing: border-box;
+  background-color: #EDEFF6;
+  padding: 13px 16px;
+
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 0%;
 }
 
 /* Hover */
-.dayButton:hover {
+.dayButton:not([disabled]):hover {
   background: #f3f4f6;
+}
+
+.dayButton:disabled {
+  color: #C7C7C7;
+  background-color: #FFFFFF;
+  cursor:auto;
 }
 
 /* Outside days */
 .outside {
-  opacity: 0.36;
-  color: #9ca3af;
 }
 
 /* Range middle */
-.rangeMiddle {
-  background: #0f172a !important;
+.rangeMiddle button{
+  background: #1D2E5B !important;
   color: #fff !important;
   border-radius: 0 !important;
 }
 
 /* Range start */
-.rangeStart {
-  background: #0f172a !important;
+.rangeStart button{
+  background: #1D2E5B !important;
   color: #fff !important;
-  border-top-left-radius: 8px !important;
-  border-bottom-left-radius: 8px !important;
+  border: 4px solid #FF5C23 !important;
+
   position: relative;
   z-index: 2;
 }
 
-.rangeStart::after {
+.rangeStart button::after {
   content: "Заезд";
   position: absolute;
-  top: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px;
-  font-weight: 600;
-  color: #0f172a;
+  top: 60%;
+  left: 16px;
+  color: #fff;
   white-space: nowrap;
+
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0%;
 }
 
 /* Range end */
-.rangeEnd {
-  background: #0f172a !important;
+.rangeEnd button{
+  background: #1D2E5B !important;
   color: #fff !important;
-  border-top-right-radius: 8px !important;
-  border-bottom-right-radius: 8px !important;
   position: relative;
   z-index: 2;
 }
 
-.rangeEnd::after {
+.rangeEnd button::after {
   content: "Выезд";
   position: absolute;
-  top: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px;
-  font-weight: 600;
-  color: #0f172a;
+  top: 60%;
+  left: 16px;
+  color: #fff;
   white-space: nowrap;
+
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0%;
 }
 
 /* Selected day (disable default circles) */
@@ -153,4 +181,24 @@
 .weekday:nth-child(6),
 .weekday:nth-child(7) {
   color: #dc2626;
+}
+
+/* BUTTONS */
+.buttonPrevious {}
+.buttonNext {}
+
+.buttonPrevious,
+.buttonNext {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 35px;
+  height: 30px;
+}
+
+.buttonPrevious svg,
+.buttonNext svg{
+  fill: #B3B3B3;
+  width: 100%;
+  height: 100%;
 }
