@@ -1,7 +1,12 @@
+.datesWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0;
+}
+
 .controls {
   display: flex;
   justify-content: space-between;
-  padding: 30px 0;
 }
 
 .counters {

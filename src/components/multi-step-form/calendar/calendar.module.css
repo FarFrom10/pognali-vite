@@ -1,0 +1,154 @@
+.calendarWrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  padding-bottom: 44px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* Root контейнер */
+.root {
+  width: 100%;
+  font-family: inherit;
+}
+
+/* Month */
+.month {
+  padding: 4px 0 0 0;
+}
+
+.monthGrid {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.monthCaption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* Weekdays header */
+.weekdays {
+  display: table-row;
+}
+
+.weekday {
+  padding: 8px 0;
+  text-align: center;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Week (row of days) */
+.week {
+  display: table-row;
+}
+
+/* Day cell */
+.day {
+  padding: 0;
+  vertical-align: middle;
+}
+
+/* Day button */
+.dayButton {
+  display: block;
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  margin: 0;
+  border-radius: 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Hover */
+.dayButton:hover {
+  background: #f3f4f6;
+}
+
+/* Outside days */
+.outside {
+  opacity: 0.36;
+  color: #9ca3af;
+}
+
+/* Range middle */
+.rangeMiddle {
+  background: #0f172a !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+}
+
+/* Range start */
+.rangeStart {
+  background: #0f172a !important;
+  color: #fff !important;
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+  position: relative;
+  z-index: 2;
+}
+
+.rangeStart::after {
+  content: "Заезд";
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+/* Range end */
+.rangeEnd {
+  background: #0f172a !important;
+  color: #fff !important;
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+  position: relative;
+  z-index: 2;
+}
+
+.rangeEnd::after {
+  content: "Выезд";
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+/* Selected day (disable default circles) */
+.selected {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* Weekend colors */
+.weekday:nth-child(6),
+.week > .day:nth-child(6) .dayButton {
+  color: #f97316;
+}
+
+.weekday:nth-child(7),
+.week > .day:nth-child(7) .dayButton {
+  color: #dc2626;
+}
