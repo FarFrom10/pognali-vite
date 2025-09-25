@@ -15,24 +15,24 @@ const schema = yup.object({
     .min(1, 'Минимум 1 человек')
     .max(10, 'Максимум 10 человек')
     .required('Это обязательное поле'),
+
   duration: yup
     .number()
     .typeError('Укажите длительность поездки')
     .min(2, 'Минимум 2 дня')
     .max(31, 'Максимум 31 день')
     .required('Это обязательное поле'),
+
   isChildrenAllowed: yup
     .boolean()
     .required('Это обязательное поле'),
-  startDate: yup.date().nullable().required('Выберите дату заезда'),
-  endDate: yup.date()
-    .nullable()
-    .min(yup.ref('startDate'), 'Дата выезда должна быть позже заезда')
-    .required('Выберите дату выезда'),
-  // countries: yup.array().of(yup.string()),
-  // tags: yup.array().of(yup.string()),
-  // comments: yup.string(),
+
+  dateRange: yup.object({
+    from: yup.date().nullable(),
+    to: yup.date().nullable(),
+  }).required('Выберите диапазон дат'),
 });
+
 
 function MultiStepForm() {
   const steps = Object.values(FormStepName);
@@ -42,8 +42,7 @@ function MultiStepForm() {
       peopleAmount: 1,
       duration: 2,
       isChildrenAllowed: false,
-      startDate: null,
-      endDate: null,
+      dateRange: { from: null, to: null },
     },
     mode: 'onChange',
     resolver: yupResolver(schema),

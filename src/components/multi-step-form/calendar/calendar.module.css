@@ -1,13 +1,13 @@
 .calendarWrapper {
   background: #ffffff;
-  border-radius: 12px;
-  padding: 16px;
+  /* padding: 16px; */
   padding-bottom: 44px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
   width: 100%;
   box-sizing: border-box;
+  border-top: 1px solid #E5E7EF;
   font-family: inherit;
 }
+
 
 /* Root контейнер */
 .root {
@@ -17,7 +17,7 @@
 
 /* Month */
 .month {
-  padding: 4px 0 0 0;
+  /* padding: 4px 0 0 0; */
 }
 
 .monthGrid {
@@ -26,12 +26,19 @@
 }
 
 .monthCaption {
+  color: #1D2E5B;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 8px;
   font-weight: 700;
   font-size: 15px;
+
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 36px;
+  letter-spacing: 0%;
 }
 
 /* Weekdays header */
@@ -144,11 +151,6 @@
 
 /* Weekend colors */
 .weekday:nth-child(6),
-.week > .day:nth-child(6) .dayButton {
-  color: #f97316;
-}
-
-.weekday:nth-child(7),
-.week > .day:nth-child(7) .dayButton {
+.weekday:nth-child(7) {
   color: #dc2626;
 }
