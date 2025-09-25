@@ -24,10 +24,11 @@ const schema = yup.object({
   isChildrenAllowed: yup
     .boolean()
     .required('Это обязательное поле'),
-  // isChildrenAllowed: yup.boolean().required(),
-
-  // startDate: yup.string().nullable(),
-  // endDate: yup.string().nullable(),
+  startDate: yup.date().nullable().required('Выберите дату заезда'),
+  endDate: yup.date()
+    .nullable()
+    .min(yup.ref('startDate'), 'Дата выезда должна быть позже заезда')
+    .required('Выберите дату выезда'),
   // countries: yup.array().of(yup.string()),
   // tags: yup.array().of(yup.string()),
   // comments: yup.string(),
@@ -41,6 +42,8 @@ function MultiStepForm() {
       peopleAmount: 1,
       duration: 2,
       isChildrenAllowed: false,
+      startDate: null,
+      endDate: null,
     },
     mode: 'onChange',
     resolver: yupResolver(schema),
