@@ -1,0 +1,24 @@
+.loaderWrapper {
+  position: fixed; /* фиксируем на весь экран */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.7); /* полупрозрачный фон */
+  z-index: 9999; /* наверх */
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

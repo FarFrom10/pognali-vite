@@ -4,6 +4,6 @@ export enum AppRoute {
 
 export enum FormStepName {
   Dates = 'Даты пребывания',
-  Address = 'Маршрут',
+  Route = 'Маршрут',
   Entertainment = 'Развлечения',
 }

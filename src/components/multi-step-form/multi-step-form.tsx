@@ -7,6 +7,7 @@ import styles from './multi-step-form.module.css';
 import { formStepText } from '../../const/const';
 import { FormValues } from '../../types/form';
 import DatesStep from './dates-step/dates-step';
+import RouteStep from './route-step/route-step';
 
 const schema = yup.object({
   peopleAmount: yup
@@ -92,8 +93,8 @@ function MultiStepForm() {
         </div>
 
         {step === 1 && <DatesStep />}
-        {/* {step === 1 && <AddressStep />}
-        {step === 2 && <ConfirmationStep data={methods.getValues()} />} */}
+        {step === 2 && <RouteStep />}
+        {/* {step === 3 && <ConfirmationStep data={methods.getValues()} />} */}
 
         <div className={styles.btnContainer}>
           <button

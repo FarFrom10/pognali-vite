@@ -45,6 +45,7 @@ main {
 
 body {
   background-color: #EDEFF6;
+  position: relative;
 }
 
 .container {
