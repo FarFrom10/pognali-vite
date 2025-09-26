@@ -8,6 +8,7 @@ import { formStepText } from '../../const/const';
 import { FormValues } from '../../types/form';
 import DatesStep from './dates-step/dates-step';
 import RouteStep from './route-step/route-step';
+import { useCountriesQuery } from '../../hooks/api/use-countires-query';
 
 const schema = yup.object({
   peopleAmount: yup
@@ -32,11 +33,25 @@ const schema = yup.object({
     from: yup.date().nullable(),
     to: yup.date().nullable(),
   }).required('Выберите диапазон дат'),
+
+  countries: yup
+    .array()
+    // .of(yup.string().trim())
+    .max(4, 'Можно выбрать максимум 4 страны')
+    .required('Выберите хотя бы одну страну')
+    .test('unique', 'Страны не должны повторяться', (value) => {
+      if (!value) {
+        return true;
+      }
+      const unique = new Set(value);
+      return unique.size === value.length;
+    }),
 });
 
 
 function MultiStepForm() {
   const steps = Object.values(FormStepName);
+  const { data: countries } = useCountriesQuery();
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -44,6 +59,7 @@ function MultiStepForm() {
       duration: 2,
       isChildrenAllowed: false,
       dateRange: { from: null, to: null },
+      countries: [],
     },
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -93,7 +109,7 @@ function MultiStepForm() {
         </div>
 
         {step === 1 && <DatesStep />}
-        {step === 2 && <RouteStep />}
+        {step === 2 && countries?.locations && <RouteStep countriesData={countries?.locations}/>}
         {/* {step === 3 && <ConfirmationStep data={methods.getValues()} />} */}
 
         <div className={styles.btnContainer}>
