@@ -8,7 +8,7 @@ export type FormValues = {
     duration: number;
     isChildrenAllowed: boolean;
     dateRange: DateRange;
-    countries: string[];
+    countries: { value: string }[];
     // tags: string[];
     // comments: string;
   };

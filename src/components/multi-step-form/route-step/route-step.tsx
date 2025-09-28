@@ -6,7 +6,7 @@ import { FormValues } from '../../../types/form';
 
 type Props = {
   countriesData: Record<string, string[]>;
-}
+};
 
 const CYRILLIC_ALPHABET = [
   'А','Б','В','Г','Д','Е','Ж','З','И','К','Л',
@@ -15,31 +15,48 @@ const CYRILLIC_ALPHABET = [
 ];
 
 export default function RouteStep({ countriesData }: Props) {
-  const { control, setValue } = useFormContext<FormValues>();
-  const { fields, append, remove, replace } = useFieldArray<FormValues, 'countries'>({
+  const MAX_COUNTRIES = 4; // <-- ограничение
+
+  const { control, watch } = useFormContext<FormValues>();
+  const { fields, append, remove } = useFieldArray<FormValues>({
     control,
     name: 'countries',
   });
 
-  // соберём все страны в один список (flat)
+  // "countries" из формы — всегда актуальное состояние массива объектов { value: string }
+  const countries = watch('countries');
+
   const allCountries = useMemo(
     () => Object.values(countriesData).flat(),
     [countriesData]
   );
 
-  // активная буква для фильтра
   const [activeLetter, setActiveLetter] = useState<string>('А');
 
-  // при первом рендере, если нет полей — добавим один пустой
+  /**
+   * useEffect-страж:
+   *  - если массив пуст — добавляем пустой селект
+   *  - если нет пустого селекта (все заполнены) и длина < MAX — добавляем пустой
+   * Это гарантирует, что всегда доступен пустой селект до достижения MAX.
+   */
   useEffect(() => {
-    if (fields.length === 0) {
-      append('');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const arr = countries ?? [];
+    const total = arr.length;
+    const hasEmpty = arr.some((it) => !(it?.value ?? '').trim());
 
-  // helper для получения флага — тут заглушка, можно заменить на реальную логику
-  const flagFor = (countryName: string) => '/images/flags/flag-example.png';
+    if (total === 0) {
+      append({ value: '' });
+      return;
+    }
+
+    if (!hasEmpty && total < MAX_COUNTRIES) {
+      append({ value: '' });
+    }
+    // append из useFieldArray обычно стабилен — безопасно включать в зависимости
+  }, [countries, append]);
+
+  // helper для флагов — пока заглушка
+  const flagFor = (countryName: string) => `/images/flags/${countryName}.png`;
 
   return (
     <div className={styles.root}>
@@ -48,9 +65,30 @@ export default function RouteStep({ countriesData }: Props) {
           <div key={f.id} className={styles.controlRow}>
             <Controller
               control={control}
-              name={`countries.${idx}`}
+              name={`countries.${idx}.value`}
               render={({ field }) => (
-                <Listbox value={field.value ?? ''} onChange={(v) => field.onChange(v)}>
+                <Listbox
+                  value={field.value ?? ''}
+                  onChange={(v) => {
+                    const selected = v?.trim();
+                    const otherValues = countries?.map((c) => c.value).filter((_, i) => i !== idx) ?? [];
+
+                    if (otherValues.includes(selected)) {
+                      // страна уже выбрана в другом селекте → сбрасываем
+                      field.onChange('');
+                      return;
+                    }
+
+                    // сохраняем значение
+                    field.onChange(selected);
+
+                    // Если это последний селект и мы выбрали значение,
+                    // — добавим новый пустой только если не достигли MAX.
+                    if (idx === fields.length - 1 && (v ?? '') && fields.length < MAX_COUNTRIES) {
+                      append({ value: '' });
+                    }
+                  }}
+                >
                   <div className={styles.listboxWrap}>
                     <ListboxButton className={styles.trigger}>
                       <span className={field.value ? styles.selectedText : styles.placeholder}>
@@ -62,15 +100,10 @@ export default function RouteStep({ countriesData }: Props) {
                     <ListboxOptions className={styles.options}>
                       <div className={styles.optionsHeader}>
                         <div className={styles.headerTitle}>ВЫБЕРИТЕ СТРАНУ</div>
-                        {/* Закрытие опций через нативное поведение Listbox (X можно просто стилизовать) */}
                         <button
                           type="button"
                           className={styles.headerClose}
-                          onClick={() => {
-                            /* фокус на кнопку кнопки закроет список автоматически */
-                            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                            (document.activeElement as HTMLElement | null)?.blur();
-                          }}
+                          onClick={() => (document.activeElement as HTMLElement | null)?.blur()}
                         >
                           ×
                         </button>
@@ -92,7 +125,7 @@ export default function RouteStep({ countriesData }: Props) {
 
                         <div className={styles.countryList}>
                           {allCountries
-                            .filter((c) => (c || '').toUpperCase().startsWith(activeLetter))
+                            .filter((country) => (country || '').toUpperCase().startsWith(activeLetter))
                             .map((country) => (
                               <ListboxOption key={country} value={country} as={Fragment}>
                                 {({ active, selected }) => (
@@ -116,51 +149,38 @@ export default function RouteStep({ countriesData }: Props) {
               type="button"
               className={styles.removeBtn}
               onClick={() => {
+                // просто удаляем — append будет выполнен в useEffect при необходимости
                 remove(idx);
-                // если удалили последний элемент и массив пуст → добавим пустой селект
-                setTimeout(() => {
-                  // прочитать текущее значение поля
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  const cur = (control as any)._formValues?.countries ?? [];
-                  if (!cur || cur.length === 0) {
-                    append('');
-                  }
-                }, 0);
               }}
             >
               ×
             </button>
           </div>
         ))}
-
-        <div className={styles.addRow}>
-          <button
-            type="button"
-            className={styles.addBtn}
-            onClick={() => append('')}
-          >
-            + Добавить страну
-          </button>
-        </div>
       </div>
 
       <div className={styles.right}>
-        {/* Вертикальная линия + строки с флагом и крестиком, порядок соответствует fields */}
         <div className={styles.timeline}>
           {fields.map((f, idx) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const value = (control as any)._formValues?.countries?.[idx] as string | undefined;
+            const currentValue = countries?.[idx]?.value ?? ''; // <-- из watch
             return (
               <div key={f.id} className={styles.timelineRow}>
                 <div className={styles.dot} />
-                <img src={value ? flagFor(value) : '/images/flags/flag-example.png'} alt="flag" className={styles.flag} />
+                {currentValue && (
+                  <img
+                    src={flagFor(currentValue)}
+                    alt={`Флаг ${currentValue}`}
+                    className={styles.flag}
+                  />
+                )}
                 <button
                   type="button"
                   className={styles.removeIcon}
                   onClick={() => remove(idx)}
                   aria-label="Удалить страну"
+                  disabled={!countries?.[idx]?.value} // нельзя удалить пустой селект
                 >
-                  ×
+          ×
                 </button>
               </div>
             );

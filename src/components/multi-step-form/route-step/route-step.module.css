@@ -260,3 +260,8 @@
   color: #ef4444;
   cursor: pointer;
 }
+
+/* Разблокируем скролл на странице при открытом Listbox */
+html {
+  overflow: visible !important;
+} 

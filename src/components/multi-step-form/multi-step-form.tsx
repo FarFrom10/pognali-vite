@@ -38,14 +38,7 @@ const schema = yup.object({
     .array()
     // .of(yup.string().trim())
     .max(4, 'Можно выбрать максимум 4 страны')
-    .required('Выберите хотя бы одну страну')
-    .test('unique', 'Страны не должны повторяться', (value) => {
-      if (!value) {
-        return true;
-      }
-      const unique = new Set(value);
-      return unique.size === value.length;
-    }),
+    .required('Выберите хотя бы одну страну'),
 });
 
 
@@ -59,7 +52,7 @@ function MultiStepForm() {
       duration: 2,
       isChildrenAllowed: false,
       dateRange: { from: null, to: null },
-      countries: [],
+      countries: [{ value: '' }],
     },
     mode: 'onChange',
     resolver: yupResolver(schema),
