@@ -3,6 +3,7 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
 import styles from './route-step.module.css';
 import { FormValues } from '../../../types/form';
+import { countryCodeMap } from '../../../utils/country-flags';
 
 type Props = {
   countriesData: Record<string, string[]>;
@@ -56,7 +57,11 @@ export default function RouteStep({ countriesData }: Props) {
   }, [countries, append]);
 
   // helper для флагов — пока заглушка
-  const flagFor = (countryName: string) => `/images/flags/${countryName}.png`;
+  // const flagFor = (countryName: string) => `/images/flags/${countryName}.png`;
+  const flagFor = (country: string) =>
+    countryCodeMap[country]
+      ? `https://flagcdn.com/${countryCodeMap[country]}.svg`
+      : '';
 
   return (
     <div className={styles.root}>
