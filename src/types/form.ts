@@ -9,6 +9,6 @@ export type FormValues = {
     isChildrenAllowed: boolean;
     dateRange: DateRange;
     countries: { value: string }[];
+    comments: Record<string, string>;
     // tags: string[];
-    // comments: string;
   };

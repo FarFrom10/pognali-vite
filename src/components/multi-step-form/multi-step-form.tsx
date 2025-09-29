@@ -9,6 +9,7 @@ import { FormValues } from '../../types/form';
 import DatesStep from './dates-step/dates-step';
 import RouteStep from './route-step/route-step';
 import { useCountriesQuery } from '../../hooks/api/use-countires-query';
+import EntertainmentStep from './entertainment-step/entertainment-step';
 
 const schema = yup.object({
   peopleAmount: yup
@@ -39,6 +40,21 @@ const schema = yup.object({
     // .of(yup.string().trim())
     .max(4, 'Можно выбрать максимум 4 страны')
     .required('Выберите хотя бы одну страну'),
+
+  comments: yup
+    .object()
+    .test(
+      'max-200',
+      'Комментарий не должен превышать 200 символов',
+      (obj) => {
+        if (!obj) {
+          return true;
+        }
+        return Object.values(obj as Record<string, string>).every(
+          (val) => !val || val.trim().length <= 200
+        );
+      }
+    ),
 });
 
 
@@ -53,6 +69,7 @@ function MultiStepForm() {
       isChildrenAllowed: false,
       dateRange: { from: null, to: null },
       countries: [{ value: '' }],
+      comments: {},
     },
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -103,7 +120,7 @@ function MultiStepForm() {
 
         {step === 1 && <DatesStep />}
         {step === 2 && countries?.locations && <RouteStep countriesData={countries?.locations}/>}
-        {/* {step === 3 && <ConfirmationStep data={methods.getValues()} />} */}
+        {step === 3 && <EntertainmentStep />}
 
         <div className={styles.btnContainer}>
           <button

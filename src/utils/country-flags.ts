@@ -136,3 +136,8 @@ export const countryCodeMap: Record<string, string> = {
   'Тувалу': 'tv',
   'Фиджи': 'fj',
 };
+
+export const getFlagForCountry = (country: string) =>
+  countryCodeMap[country]
+    ? `https://flagcdn.com/${countryCodeMap[country]}.svg`
+    : '';

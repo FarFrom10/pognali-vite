@@ -3,17 +3,12 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
 import styles from './route-step.module.css';
 import { FormValues } from '../../../types/form';
-import { countryCodeMap } from '../../../utils/country-flags';
+import { getFlagForCountry } from '../../../utils/country-flags';
+import { CYRILLIC_ALPHABET } from '../../../const/const';
 
 type Props = {
   countriesData: Record<string, string[]>;
 };
-
-const CYRILLIC_ALPHABET = [
-  'А','Б','В','Г','Д','Е','Ж','З','И','К','Л',
-  'М','Н','О','П','Р','С','Т','У','Ф','Х',
-  'Ч','Ш','Э','Ю','Я'
-];
 
 export default function RouteStep({ countriesData }: Props) {
   const MAX_COUNTRIES = 4; // <-- ограничение
@@ -55,13 +50,6 @@ export default function RouteStep({ countriesData }: Props) {
     }
     // append из useFieldArray обычно стабилен — безопасно включать в зависимости
   }, [countries, append]);
-
-  // helper для флагов — пока заглушка
-  // const flagFor = (countryName: string) => `/images/flags/${countryName}.png`;
-  const flagFor = (country: string) =>
-    countryCodeMap[country]
-      ? `https://flagcdn.com/${countryCodeMap[country]}.svg`
-      : '';
 
   return (
     <div className={styles.root}>
@@ -173,7 +161,7 @@ export default function RouteStep({ countriesData }: Props) {
                 <div className={styles.dot} />
                 {currentValue && (
                   <img
-                    src={flagFor(currentValue)}
+                    src={getFlagForCountry(currentValue)}
                     alt={`Флаг ${currentValue}`}
                     className={styles.flag}
                   />
