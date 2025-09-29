@@ -1,10 +1,11 @@
 import { useFormContext } from 'react-hook-form';
-import { FormValues } from '../../../types/form';
 import styles from './entertainment-step.module.css';
 import { getFlagForCountry } from '../../../utils/country-flags';
+import { FormValues } from '../../../schemas/form-schema';
+import { ValidNumbers } from '../../../const/const';
 
 function EntertainmentStep() {
-  const { register, watch } = useFormContext<FormValues>();
+  const { watch } = useFormContext<FormValues>();
   const countries = watch('countries'); // берем список выбранных стран
   const filteredCountries = countries?.filter((c) => c.value.trim());
 
@@ -26,12 +27,7 @@ function EntertainmentStep() {
             )}
           </div>
           <textarea
-            {...register(`comments.${c.value}`, {
-              maxLength: {
-                value: 200,
-                message: 'Не более 200 символов',
-              },
-            })}
+            maxLength={ValidNumbers.CommentLength.max}
             placeholder="План действий"
             className={styles.textarea}
           />

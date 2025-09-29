@@ -1,9 +1,9 @@
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { DayPicker } from 'react-day-picker';
 import styles from './calendar.module.css';
-import { FormValues } from '../../../types/form';
 import { ru } from 'date-fns/locale';
 import { useCallback } from 'react';
+import { FormValues } from '../../../schemas/form-schema';
 
 
 function Calendar() {

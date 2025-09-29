@@ -1,14 +1,41 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
   margin-top: 1rem;
+  position: relative;
+}
+
+/* Вертикальная линия справа */
+.wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 6rem;
+  right: 29px; /* сдвигаем, чтобы линия проходила через центр кружков */
+  width: 2px;
+  background-color: #1a2440; /* тёмно-синий */
 }
 
 .countryBlock {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  position: relative;
+  padding-right: 3.5rem; /* отступ для линии и кружка */
+}
+
+/* Кружок на линии */
+.countryBlock::before {
+  content: '';
+  position: absolute;
+  right: 24px;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  background-color: #1D2E5B;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
 }
 
 .header {
@@ -20,13 +47,13 @@
 .header h4 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1a2440; /* глубокий тёмно-синий */
+  color: #1a2440;
   margin: 0;
 }
 
 .flag {
-  width: 32px;
-  height: 22px;
+  width: 36px;
+  height: 24px;
   object-fit: cover;
   border-radius: 4px;
   flex-shrink: 0;
@@ -36,7 +63,7 @@
   width: 100%;
   min-height: 80px;
   padding: 0.75rem 1rem;
-  border: 1px solid #d1d5db; /* светло-серый */
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 0.95rem;
   resize: vertical;
@@ -50,6 +77,6 @@
 
 .textarea:focus {
   outline: none;
-  border-color: #2563eb; /* синий */
+  border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }

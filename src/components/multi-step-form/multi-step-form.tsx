@@ -1,61 +1,14 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useStep } from 'usehooks-ts';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FormStepName } from '../../const/enum';
 import styles from './multi-step-form.module.css';
 import { formStepText } from '../../const/const';
-import { FormValues } from '../../types/form';
 import DatesStep from './dates-step/dates-step';
 import RouteStep from './route-step/route-step';
 import { useCountriesQuery } from '../../hooks/api/use-countires-query';
 import EntertainmentStep from './entertainment-step/entertainment-step';
-
-const schema = yup.object({
-  peopleAmount: yup
-    .number()
-    .typeError('Укажите количество попутчиков')
-    .min(1, 'Минимум 1 человек')
-    .max(10, 'Максимум 10 человек')
-    .required('Это обязательное поле'),
-
-  duration: yup
-    .number()
-    .typeError('Укажите длительность поездки')
-    .min(2, 'Минимум 2 дня')
-    .max(31, 'Максимум 31 день')
-    .required('Это обязательное поле'),
-
-  isChildrenAllowed: yup
-    .boolean()
-    .required('Это обязательное поле'),
-
-  dateRange: yup.object({
-    from: yup.date().nullable(),
-    to: yup.date().nullable(),
-  }).required('Выберите диапазон дат'),
-
-  countries: yup
-    .array()
-    // .of(yup.string().trim())
-    .max(4, 'Можно выбрать максимум 4 страны')
-    .required('Выберите хотя бы одну страну'),
-
-  comments: yup
-    .object()
-    .test(
-      'max-200',
-      'Комментарий не должен превышать 200 символов',
-      (obj) => {
-        if (!obj) {
-          return true;
-        }
-        return Object.values(obj as Record<string, string>).every(
-          (val) => !val || val.trim().length <= 200
-        );
-      }
-    ),
-});
+import { FormValues, schema } from '../../schemas/form-schema';
 
 
 function MultiStepForm() {
@@ -68,11 +21,11 @@ function MultiStepForm() {
       duration: 2,
       isChildrenAllowed: false,
       dateRange: { from: null, to: null },
-      countries: [{ value: '' }],
+      countries: [],
       comments: {},
     },
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
   });
 
   const [step, {
@@ -82,21 +35,33 @@ function MultiStepForm() {
     canGoToPrevStep,
   }] = useStep(steps.length);
 
-  const onSubmit = methods.handleSubmit((data) => {
+  // const stepFields: Record<number, (keyof FormValues)[]> = {
+  //   1: ['dateRange', 'peopleAmount', 'duration', 'isChildrenAllowed'],
+  //   2: ['countries'],
+  //   3: ['comments'],
+  // };
+
+  const onNextStep = async () => {
     if (step < steps.length) {
-      console.log(data);
+    // До последнего шага — просто переключаемся
       goToNextStep();
     } else {
-      // alert(`Форма отправлена: ${ JSON.stringify(data, null, 2)}`);
+    // На последнем шаге — валидируем всю форму
+      const isValid = await methods.trigger();
+
+      if (!isValid) {
+        return; // остаёмся на шаге, если есть ошибки
+      }
+
+      console.log('Форма полностью заполнена:', methods.getValues());
       methods.reset();
       resetStep();
     }
-  });
+  };
 
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={(e) => void onSubmit(e)}
         className={styles.form}
       >
         <div className={styles.formHeader}>
@@ -105,27 +70,26 @@ function MultiStepForm() {
             <p>{formStepText[steps[step]]}</p>
           </div>
           <ul className={styles.stepsList}>
-            {
-              steps.map((item, index) => (
-                <li
-                  key={item}
-                  className={`${styles.stepItem} ${index + 1 === step ? styles.activeStep : ''}`}
-                >
-                  {item.split(' ')[0]}
-                </li>
-              ))
-            }
+            {steps.map((item, index) => (
+              <li
+                key={item}
+                className={`${styles.stepItem} ${index + 1 === step ? styles.activeStep : ''}`}
+              >
+                {item.split(' ')[0]}
+              </li>
+            ))}
           </ul>
         </div>
 
         {step === 1 && <DatesStep />}
-        {step === 2 && countries?.locations && <RouteStep countriesData={countries?.locations}/>}
+        {step === 2 && countries?.locations && <RouteStep countriesData={countries?.locations} />}
         {step === 3 && <EntertainmentStep />}
 
         <div className={styles.btnContainer}>
           <button
-            type="submit"
+            type="button"
             className={styles.btn}
+            onClick={() => void onNextStep()}
           >
             {step === steps.length ? 'Отправить' : 'Следующий шаг'}
           </button>
@@ -136,10 +100,9 @@ function MultiStepForm() {
               onClick={goToPrevStep}
               className={styles.btn}
             >
-            На шаг назад
+              На шаг назад
             </button>
           )}
-
         </div>
       </form>
     </FormProvider>

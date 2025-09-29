@@ -1,10 +1,10 @@
-import { Fragment, useMemo, useState, useEffect } from 'react';
+import { Fragment, useMemo, useState, useEffect, useRef } from 'react';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
 import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
 import styles from './route-step.module.css';
-import { FormValues } from '../../../types/form';
 import { getFlagForCountry } from '../../../utils/country-flags';
 import { CYRILLIC_ALPHABET } from '../../../const/const';
+import { FormValues } from '../../../schemas/form-schema';
 
 type Props = {
   countriesData: Record<string, string[]>;
@@ -12,6 +12,8 @@ type Props = {
 
 export default function RouteStep({ countriesData }: Props) {
   const MAX_COUNTRIES = 4; // <-- ограничение
+  //Нужно для хранения актуального занчения, иначе useEffect создаст 2 селекта
+  const isFirstRender = useRef(true);
 
   const { control, watch } = useFormContext<FormValues>();
   const { fields, append, remove } = useFieldArray<FormValues>({
@@ -29,27 +31,14 @@ export default function RouteStep({ countriesData }: Props) {
 
   const [activeLetter, setActiveLetter] = useState<string>('А');
 
-  /**
-   * useEffect-страж:
-   *  - если массив пуст — добавляем пустой селект
-   *  - если нет пустого селекта (все заполнены) и длина < MAX — добавляем пустой
-   * Это гарантирует, что всегда доступен пустой селект до достижения MAX.
-   */
+  //Добавление первого селекта при монтировании компонениа
   useEffect(() => {
-    const arr = countries ?? [];
-    const total = arr.length;
-    const hasEmpty = arr.some((it) => !(it?.value ?? '').trim());
-
-    if (total === 0) {
+    if (isFirstRender.current && countries.length === 0) {
       append({ value: '' });
-      return;
+      isFirstRender.current = false;
     }
-
-    if (!hasEmpty && total < MAX_COUNTRIES) {
-      append({ value: '' });
-    }
-    // append из useFieldArray обычно стабилен — безопасно включать в зависимости
-  }, [countries, append]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.root}>

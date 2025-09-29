@@ -1,5 +1,11 @@
 import { FormStepName } from './enum';
 
+export const ValidNumbers = {
+  People : { min: 1, max: 10 },
+  Duration : { min: 2, max: 31 },
+  CommentLength: {max: 200}
+} as const;
+
 export const formStepText = {
   [FormStepName.Dates]: `Укажите предпочтительное количество попутчиков, которых
   вы хотели бы позвать в поездку, и ее предполагаемую длительность.`,

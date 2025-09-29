@@ -2,6 +2,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import Counter from '../counter/counter';
 import styles from './dates-step.module.css';
 import Calendar from '../calendar/calendar';
+import { ValidNumbers } from '../../../const/const';
 
 function DatesStep() {
   const { control } = useFormContext();
@@ -10,8 +11,14 @@ function DatesStep() {
     <div className={styles.datesWrapper}>
       <div className={styles.controls}>
         <div className={styles.counters}>
-          <Counter control={control} name="peopleAmount" label="Ищу попутчиков" unit='чел' min={1} max={10} />
-          <Counter control={control} name="duration" label="Длительность" unit='дн' min={2} max={31} />
+          <Counter control={control} name="peopleAmount" label="Ищу попутчиков" unit='чел'
+            min={ValidNumbers.People.min}
+            max={ValidNumbers.People.max}
+          />
+          <Counter control={control} name="duration" label="Длительность" unit='дн'
+            min={ValidNumbers.Duration.min}
+            max={ValidNumbers.Duration.max}
+          />
         </div>
         <div className={styles.checkboxContainer}>
           <Controller
