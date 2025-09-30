@@ -1,45 +1,33 @@
 import { useState } from 'react';
 import styles from './transport-icons.module.scss';
-import PlaneIcon from '/images/assets/icons/icon-plane.svg';
-import BusIcon from '/images/assets/icons/icon-bus.svg';
-import BikeIcon from '/images/assets/icons/icon-bike.svg';
-import FootIcon from '/images/assets/icons/icon-foot.svg';
 import Tooltip from '../tooltip/tooltip';
-
-const transportConfig = {
-  plane: { icon: PlaneIcon, label: 'Авиаперелет' },
-  bus: { icon: BusIcon, label: 'Автотранспорт' },
-  bike: { icon: BikeIcon, label: 'Велосипед' },
-  foot: { icon: FootIcon, label: 'Пешком' },
-};
-
-type TransportId = keyof typeof transportConfig;
-// "plane" | "bus" | "bike" | "foot"
+import { TransportId } from '../../../types/form';
+import { transportConfig } from '../../../const/const';
 
 type Props = {
+  value: TransportId[];
+  onChange: (active: TransportId[]) => void;
   transportTypes?: TransportId[];
   label?: string;
   withBorder?: boolean;
   className?: string;
-  onChange?: (active: TransportId[]) => void;
 };
 
 const TransportIcons = ({
+  value,
   transportTypes = ['plane', 'bus', 'bike', 'foot'],
   label = 'Транспорт',
   withBorder = false,
   className = '',
   onChange,
 }: Props) => {
-  const [active, setActive] = useState<TransportId[]>([]);
   const [hovered, setHovered] = useState<TransportId | null>(null);
 
   const toggleTransport = (id: TransportId) => {
-    const updated = active.includes(id)
-      ? active.filter((t) => t !== id)
-      : [...active, id];
-    setActive(updated);
-    onChange?.(updated);
+    const updated = value.includes(id)
+      ? value.filter((t) => t !== id)
+      : [...value, id];
+    onChange(updated);
   };
 
   return (
@@ -55,7 +43,7 @@ const TransportIcons = ({
             return null;
           }
 
-          const isActive = active.includes(id);
+          const isActive = value.includes(id);
           const isHovered = hovered === id;
 
           return (

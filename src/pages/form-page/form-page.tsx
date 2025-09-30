@@ -11,6 +11,7 @@ function FormPage() {
   const methods = useForm<FormValues>({
     defaultValues: {
       tags: [],
+      transport: [],
       peopleAmount: 1,
       duration: 2,
       isChildrenAllowed: false,

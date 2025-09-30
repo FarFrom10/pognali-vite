@@ -1,10 +1,21 @@
 import { FormStepName } from './enum';
+import PlaneIcon from '/images/assets/icons/icon-plane.svg';
+import BusIcon from '/images/assets/icons/icon-bus.svg';
+import BikeIcon from '/images/assets/icons/icon-bike.svg';
+import FootIcon from '/images/assets/icons/icon-foot.svg';
 
 export const ValidNumbers = {
   People : { min: 1, max: 10 },
   Duration : { min: 2, max: 31 },
   CommentLength: {max: 200}
 } as const;
+
+export const transportConfig = {
+  plane: { icon: PlaneIcon, label: 'Авиаперелет' },
+  bus: { icon: BusIcon, label: 'Автотранспорт' },
+  bike: { icon: BikeIcon, label: 'Велосипед' },
+  foot: { icon: FootIcon, label: 'Пешком' },
+};
 
 export const formStepText = {
   [FormStepName.Dates]: `Укажите предпочтительное количество попутчиков, которых

@@ -13,7 +13,7 @@ import { FormValues } from '../../schemas/form-schema';
 function MultiStepForm() {
   const steps = Object.values(FormStepName);
   const { data: countries } = useCountriesQuery();
-  const { trigger, getValues, reset } = useFormContext<FormValues>();
+  const { trigger, reset } = useFormContext<FormValues>();
 
   const [step, {
     goToNextStep,
@@ -22,26 +22,31 @@ function MultiStepForm() {
     canGoToPrevStep,
   }] = useStep(steps.length);
 
-  // const stepFields: Record<number, (keyof FormValues)[]> = {
-  //   1: ['dateRange', 'peopleAmount', 'duration', 'isChildrenAllowed'],
-  //   2: ['countries'],
-  //   3: ['comments'],
-  // };
-
   const onNextStep = async () => {
     if (step < steps.length) {
     // До последнего шага — просто переключаемся
       goToNextStep();
-      console.log(getValues());
     } else {
     // На последнем шаге — валидируем всю форму
       const isValid = await trigger();
 
       if (!isValid) {
-        return; // остаёмся на шаге, если есть ошибки
+        return; // остаёмся на последнем шаге, если есть ошибки
       }
 
-      console.log('Форма полностью заполнена:', getValues());
+
+      //Удаление возможных объектов с пустой строкой в поле value
+      // const allValues = getValues(); - импортировать из useFormContext()
+      // const filteredCountries = allValues.countries.filter(
+      //   (c) => c.value.trim() !== ''
+      // );
+
+      //Используем в post запросе для размещения данных карточки
+      // const payload = {
+      //   ...allValues,
+      //   countries: filteredCountries,
+      // };
+
       reset();
       resetStep();
     }

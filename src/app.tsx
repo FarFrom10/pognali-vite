@@ -6,8 +6,7 @@ import { useCountriesQuery } from './hooks/api/use-countires-query';
 import Loader from './components/loader/loader';
 
 function App() {
-  const { data, isLoading } = useCountriesQuery();
-  console.log(data);
+  const { isLoading } = useCountriesQuery();
 
   if (isLoading) {
     return <Loader/>;

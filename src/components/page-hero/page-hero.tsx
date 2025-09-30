@@ -41,7 +41,18 @@ const PageHero = ({ title = 'Направления' }: Props) => {
               )}
             />
 
-            <TransportIcons className={styles.transportHero} withBorder />
+            <Controller
+              name="transport"
+              control={control}
+              render={({ field }) => (
+                <TransportIcons
+                  value={field.value}
+                  onChange={field.onChange}
+                  className={styles.transportHero}
+                  withBorder
+                />
+              )}
+            />
 
             <LevelCircle className={styles.levelHero} value={80} size={95} />
 
