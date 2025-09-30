@@ -3,10 +3,14 @@
 
 .formPage {
 
-  .main {
-
+  .wrapper {
     background-color: var(--color-bg-additional-light);
     border-radius: func.rem(60);
+  }
+
+  .main {
+    // background-color: var(--color-bg-additional-light);
+
     padding: func.rem(55) func.rem(60);
 
     .mainTitle {

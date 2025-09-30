@@ -6,6 +6,7 @@ import PageHero from '../../components/page-hero/page-hero';
 import styles from './form-page.module.scss';
 import { FormValues, mainFormSchema } from '../../schemas/form-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Footer from '../../components/footer/footer';
 
 function FormPage() {
   const methods = useForm<FormValues>({
@@ -29,12 +30,16 @@ function FormPage() {
         <Header />
         <PageHero title="Направления" />
 
-        <main className={styles.main}>
-          <Container>
-            <h2 className={styles.mainTitle}>Добавить план:</h2>
-            <MultiStepForm/>
-          </Container>
-        </main>
+        <div className={styles.wrapper}>
+          <main className={styles.main}>
+            <Container>
+              <h2 className={styles.mainTitle}>Добавить план:</h2>
+              <MultiStepForm/>
+            </Container>
+          </main>
+          <Footer/>
+        </div>
+
       </div>
     </FormProvider>
   );

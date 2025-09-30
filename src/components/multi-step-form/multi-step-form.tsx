@@ -58,7 +58,7 @@ function MultiStepForm() {
       <div className={styles.formHeader}>
         <div className={styles.titles}>
           <h3 className={styles.title}>Шаг {step}.{steps[step - 1]}</h3>
-          <p>{formStepText[steps[step]]}</p>
+          <p>{formStepText[steps[step - 1]]}</p>
         </div>
         <ul className={styles.stepsList}>
           {steps.map((item, index) => (
