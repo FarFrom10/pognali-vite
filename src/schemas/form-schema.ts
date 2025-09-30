@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-export const schema = z.object({
+export const mainFormSchema = z.object({
+  tags: z.array(z.string()).min(1, 'Нужно указать хотя бы один тег'),
   peopleAmount: z.number().min(1, 'Это обязательное поле'),
   duration: z.number().min(1, 'Это обязательное поле'),
   isChildrenAllowed: z.boolean(),
@@ -31,4 +32,4 @@ export const schema = z.object({
     .catchall(z.string().max(200, 'Комментарий не должен превышать 200 символов')),
 });
 
-export type FormValues = z.infer<typeof schema>;
+export type FormValues = z.infer<typeof mainFormSchema>;

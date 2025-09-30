@@ -2,23 +2,22 @@ import { useState } from 'react';
 import styles from './tags-input.module.scss';
 
 type Props = {
-  initialTags?: string[];
+  tags: string[];
+  onChange: (updated: string[]) => void;
   placeholder?: string;
   label?: string;
   withBorder?: boolean;
   className?: string;
-  onChange?: (updated: string[]) => void;
 }
 
 const TagsInput = ({
-  initialTags = [],
+  tags,
   placeholder = 'Укажите хотя бы 1 тег (#концерт)',
   label = 'тэги',
   withBorder = true,
   className = '',
   onChange
 }: Props) => {
-  const [tags, setTags] = useState(initialTags);
   const [input, setInput] = useState('');
 
   const addTag = (tag: string) => {
@@ -29,14 +28,12 @@ const TagsInput = ({
 
     const tagWithSymbol = newTag.startsWith('#') ? newTag : `#${newTag}`;
     const updated = [...tags, tagWithSymbol];
-    setTags(updated);
     onChange?.(updated);
     setInput('');
   };
 
   const removeTag = (idx: number) => {
     const updated = tags.filter((_, i) => i !== idx);
-    setTags(updated);
     onChange?.(updated);
   };
 
