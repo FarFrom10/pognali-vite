@@ -11,8 +11,8 @@ type Props = {
 }
 
 const TagsInput = ({
-  initialTags = ['#бургер', '#бар', '#футбол', '#концерт', '#крафт'],
-  placeholder = '',
+  initialTags = [],
+  placeholder = 'Укажите хотя бы 1 тег (#концерт)',
   label = 'тэги',
   withBorder = true,
   className = '',
@@ -26,7 +26,9 @@ const TagsInput = ({
     if (!newTag || tags.includes(newTag)) {
       return;
     }
-    const updated = [...tags, newTag];
+
+    const tagWithSymbol = newTag.startsWith('#') ? newTag : `#${newTag}`;
+    const updated = [...tags, tagWithSymbol];
     setTags(updated);
     onChange?.(updated);
     setInput('');
@@ -67,7 +69,7 @@ const TagsInput = ({
           <input
             type="text"
             value={input}
-            placeholder={placeholder}
+            placeholder={!tags.length && placeholder || ''}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
           />

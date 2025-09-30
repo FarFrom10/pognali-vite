@@ -60,6 +60,7 @@
         object-fit: contain;
         display: block;
         transition: filter 0.2s;
+        opacity: 0.15 !important;
       }
     }
 
@@ -73,7 +74,7 @@
     &.active {
       .icon {
         img {
-          opacity: 0.15;
+          opacity: 1 !important;
         }
       }
 
