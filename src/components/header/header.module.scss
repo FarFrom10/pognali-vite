@@ -1,0 +1,29 @@
+@use '../../styles/func.scss' as func;
+
+.header {
+  background-color: var(--color-bg-secondary);
+  padding: func.rem(46) 0 func.rem(64);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: func.rem(40);
+}
+
+.separator {
+  width: func.rem(60);
+  height: func.rem(2);
+  background: var(--color-default-white);
+  margin: 0;
+}
+
+.rightSection {
+  //
+}

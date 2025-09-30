@@ -1,0 +1,45 @@
+@use '../../styles/func.scss' as func;
+@use '../../styles/variables.scss' as var;
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: func.rem(18);
+}
+
+.link {
+  font-family: var.$ff-roboto;
+  font-size: func.rem(20);
+  line-height: func.rem(20);
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-default-white);
+  text-decoration: none;
+  padding: 0;
+  border-radius: func.rem(4);
+  transition: all var.$transition-duration var.$transition-timing-function;
+  position: relative;
+
+  &:hover {
+    color: --color-accent;
+    background-color: rgba(255, 92, 35, 0.1);
+  }
+
+  &:active,
+  &.active {
+    color: --color-accent;
+    font-weight: 600;
+  }
+
+  &.active::after {
+    content: '';
+    position: absolute;
+    bottom: func.rem(-4);
+    left: 50%;
+    transform: translateX(-50%);
+    width: func.rem(20);
+    height: func.rem(2);
+    background-color: --color-accent;
+    border-radius: func.rem(1);
+  }
+}

@@ -1,0 +1,27 @@
+@use '../../styles/func.scss' as func;
+
+
+.formPage {
+
+  .main {
+
+    background-color: var(--color-bg-additional-light);
+    border-radius: func.rem(60);
+    padding: func.rem(55) func.rem(60);
+
+    .mainTitle {
+      text-align: left;
+      margin: 0;
+      margin-left: func.rem(69);
+      margin-bottom: func.rem(54);
+      font-weight: 700;
+      font-size: func.rem(36);
+    }
+
+    .stepsWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: func.rem(44);
+    }
+  }
+}
