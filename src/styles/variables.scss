@@ -1,0 +1,29 @@
+// breakpoints
+$desktop: 1440px;
+$tablet: 1024px;
+$tablet-small: 768px;
+$mobile-large: 480px;
+$mobile: 320px;
+
+// Padding values
+$desktop-padding: 60px;
+$tablet-padding: 40px; 
+$mobile-padding: 24px;
+$mobile-padding-min: 12px;
+
+// Viewports
+$vp-1440: 1440px;
+$vp-1024: 1024px;
+
+// Typography
+$fs-default: 16px;
+$ff-roboto: "Roboto", "Arial", sans-serif;
+
+// retina
+$retina-dpi: 144dpi;
+$retina-dppx: 1.5dppx;
+
+// transitions
+$transition-duration: 0.3s;
+$transition-timing-function: ease;
+$transition: $transition-duration $transition-timing-function;

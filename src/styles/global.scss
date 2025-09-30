@@ -1,0 +1,51 @@
+@use 'variables';
+@use 'mixins';
+
+@include font-face('Roboto', 400);
+@include font-face('Roboto', 500);
+@include font-face('Roboto', 700);
+
+:root {
+  --color-default-black: #000000;
+  --color-default-white: #ffffff;
+  --color-default-gray: #444444;
+  --color-secondary-gray:#cbced9;
+  --color-additional-gray: #d6d9e6;
+  --color-transparent: rgba(255, 255, 255, 0);
+  --color-text-main: #1d2e5b;
+  --color-text-additional: #161c35;
+  --color-btn-main: #a8d2f4;
+  --color-btn-additional: #dfe3f0;
+  --color-btn-hover: #4d99d6;
+  --color-btn-active: #4d99d6;
+  --color-icon-bg-main: #7ebaeb;
+  --color-icon-bg-additional:#478ac4;
+  --color-bg-main: #edeff6;
+  --color-bg-grey: #e1e3e9;
+  --color-bg-grey-secondary: #cccccc;
+  --color-bg-secondary: #192144;
+  --color-bg-additional: #182044;
+  --color-bg-additional-dark: #101D41;
+  --color-bg-additional-light: #aed0eb;
+  --color-accent: #ff5c23;
+  --color-error: #ff0000;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
+}
+
+html,
+body {
+  max-width: 100vw;
+  scroll-behavior: smooth;
+}

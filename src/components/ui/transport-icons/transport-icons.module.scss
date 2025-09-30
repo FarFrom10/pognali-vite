@@ -1,0 +1,82 @@
+@use '../../../styles/func.scss' as func;
+
+.transportIconsWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background: var(--color-bg-main);
+    padding: func.rem(5) func.rem(20);
+    font-size: func.rem(20);
+    font-weight: 500;
+    color: var(--color-text-additional);
+    border-radius: func.rem(6);
+    line-height: 1;
+    pointer-events: none;
+    text-transform: uppercase;
+  }
+
+  .iconsContainer {
+    width: 100%;
+    min-width: func.rem(384);
+    min-height: func.rem(94);
+    border: 1px solid #ccc;
+    border-radius: func.rem(10);
+    padding: func.rem(24);
+    display: flex;
+    justify-content: center;
+    gap: func.rem(0);
+    flex-wrap: wrap;
+    background: transparent;
+  }
+
+  .iconWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: func.rem(8);
+    cursor: pointer;
+    position: relative;
+    border: none;
+
+    .icon {
+      width: func.rem(44);
+      height: func.rem(44);
+      border-radius: 50%;
+      background-color: var(--color-default-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: func.rem(8);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        transition: filter 0.2s;
+      }
+    }
+
+    .label {
+      font-size: func.rem(14);
+      line-height: 1.2;
+      color: var(--color-text-additional);
+      text-align: center;
+    }
+
+    &.active {
+      .icon {
+        img {
+          opacity: 0.15;
+        }
+      }
+
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@use '../../../styles/func' as func;
+
+.tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg-additional-dark);
+  color: white;
+  padding: func.rem(18) func.rem(15);
+  border-radius: func.rem(4);
+  font-size: func.rem(20);
+  white-space: nowrap;
+  z-index: 10;
+  margin-top: func.rem(12);
+}
+
+.arrow {
+  position: absolute;
+  top: func.rem(-6);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: func.rem(10) solid transparent;
+  border-right: func.rem(10) solid transparent;
+  border-bottom: func.rem(10) solid var(--color-bg-additional-dark);
+}

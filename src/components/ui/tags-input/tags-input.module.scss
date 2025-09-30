@@ -1,0 +1,77 @@
+@use '../../../styles/func.scss' as func;
+
+.tagsInput {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  &.withBorder {
+    .label {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      background: var(--color-bg-main);
+      padding: func.rem(5) func.rem(20);
+      font-size: func.rem(20);
+      font-weight: 500;
+      color: var(--color-text-additional);
+      border-radius: func.rem(6);
+      line-height: 1;
+      pointer-events: none;
+      text-transform: uppercase;
+    }
+
+    .inputWrapper {
+      border: 1px solid #ccc;
+      border-radius: func.rem(10);
+      padding: func.rem(34) func.rem(40);
+      min-height: func.rem(94);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: func.rem(732);
+    }
+  }
+
+  .tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: func.rem(2);
+    flex: 1;
+    align-items: center;
+
+    input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: func.rem(14);
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  .tag {
+    display: flex;
+    align-items: center;
+    gap: func.rem(1);
+    font-size: func.rem(20);
+    color: var(--color-default-gray);
+    opacity: 0.6;
+
+    button.removeBtn {
+      border: none;
+      background: none;
+      color: transparent;
+      cursor: pointer;
+      font-size: func.rem(14);
+      transition: color 0.2s;
+    }
+
+    &:hover button.removeBtn {
+      color: var(--color-default-gray);
+    }
+  }
+}
