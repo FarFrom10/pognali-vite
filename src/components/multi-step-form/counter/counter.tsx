@@ -30,7 +30,7 @@ function Counter({ control, name, label, unit, min, max}: Props) {
         };
 
         return (
-          <div className={styles.controls}>
+          <div className={styles.wrapper}>
             <span>{label}:</span>
             <div className={styles.buttonsContainer}>
               <button

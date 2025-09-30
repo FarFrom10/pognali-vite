@@ -1,17 +1,18 @@
 .datesWrapper {
   display: flex;
   flex-direction: column;
-  padding: 30px 0;
 }
 
 .controls {
-  display: flex;
-  justify-content: space-between;
-}
-
-.counters {
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
+  gap: 14px;
+}
+
+.controlsInner {
+  display: flex;
+  justify-content: space-between;
 }
 
 .checkboxContainer {

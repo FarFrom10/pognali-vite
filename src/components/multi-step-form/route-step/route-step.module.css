@@ -3,7 +3,6 @@
   display: flex;
   gap: 28px;
   align-items: flex-start;
-  padding: 24px 0 0 0;
 }
 
 /* Левая колонка — селекты */
@@ -264,4 +263,4 @@
 /* Разблокируем скролл на странице при открытом Listbox */
 html {
   overflow: visible !important;
-} 
+}

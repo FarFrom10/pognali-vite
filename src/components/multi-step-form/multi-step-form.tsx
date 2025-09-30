@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { useStep } from 'usehooks-ts';
 import { FormStepName } from '../../const/enum';
-import styles from './multi-step-form.module.css';
+import styles from './multi-step-form.module.scss';
 import { formStepText } from '../../const/const';
 import DatesStep from './dates-step/dates-step';
 import RouteStep from './route-step/route-step';
@@ -33,7 +33,6 @@ function MultiStepForm() {
       if (!isValid) {
         return; // остаёмся на последнем шаге, если есть ошибки
       }
-
 
       //Удаление возможных объектов с пустой строкой в поле value
       // const allValues = getValues(); - импортировать из useFormContext()
@@ -73,14 +72,16 @@ function MultiStepForm() {
         </ul>
       </div>
 
-      {step === 1 && <DatesStep />}
-      {step === 2 && countries?.locations && <RouteStep countriesData={countries?.locations} />}
-      {step === 3 && <EntertainmentStep />}
+      <div className={styles.stepsWrapper}>
+        {step === 1 && <DatesStep />}
+        {step === 2 && countries?.locations && <RouteStep countriesData={countries?.locations} />}
+        {step === 3 && <EntertainmentStep />}
+      </div>
 
       <div className={styles.btnContainer}>
         <button
           type="button"
-          className={styles.btn}
+          className={`${styles.btn} ${styles.btnNext}`}
           onClick={() => void onNextStep()}
         >
           {step === steps.length ? 'Отправить' : 'Следующий шаг'}
@@ -90,7 +91,7 @@ function MultiStepForm() {
           <button
             type="button"
             onClick={goToPrevStep}
-            className={styles.btn}
+            className={`${styles.btn} ${styles.btnPrev}`}
           >
               На шаг назад
           </button>

@@ -1,7 +1,16 @@
+@use '../../styles/func' as func;
+
 .form {
   background-color: #fff;
   border-radius: 60px;
   padding: 100px 160px;
+}
+
+.stepsWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0;
+  margin-bottom: 30px;
 }
 
 .formHeader {
@@ -9,12 +18,13 @@
   justify-content: space-between;
   border-bottom: 1px solid #E1E3E9;
   padding-bottom: 55px;
+  gap: 30px;
 }
 .titles {
   display: flex;
   gap: 33px;
   flex-direction: column;
-  max-width: 660px;
+  max-width: 659px;
 }
 .titles p {
   color: #444444;
@@ -26,8 +36,13 @@
 }
 
 .btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: all ease 0.25s;
+
   cursor: pointer;
-  padding: 29px 34px;
+  padding: 28px 34px;
   border-radius: 20px;
   background-color: #A8D2F4;
   color: #1D2E5B;
@@ -39,6 +54,42 @@
   line-height: 24px;
   letter-spacing: 0%;
 }
+
+.btnPrev {
+    background-color: transparent;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: func.rem(14);
+      width: 0;
+      height: 0;
+      border-top: func.rem(6) solid transparent;
+      border-bottom: func.rem(6) solid transparent;
+      border-right: func.rem(8) solid var(--color-text-main);
+    }
+}
+.btnPrev:hover {
+  color: #5C688A;
+}
+
+.btnNext {
+    // min-width: func.rem(286);
+    justify-content: flex-start;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      margin-left: func.rem(10);
+      border-top: func.rem(6) solid transparent;
+      border-bottom: func.rem(6) solid transparent;
+      border-left: func.rem(8) solid var(--color-text-main);
+    }
+}
+.btnNext:hover {
+  background-color: #4D99D6;
+}
+
 
 .stepsList {
   display: flex;

@@ -1,7 +1,10 @@
-.controls {
-  display: flex;
+.wrapper {
+  display: grid;
+  grid-template-columns: 200px 180px 50px;
   align-items: center;
+  gap: 10px;
   justify-content: space-between;
+  width: 480px;
 }
 
 .buttonsContainer {
@@ -14,7 +17,7 @@
   width: 180px;
 }
 
-.controls span{
+.wrapper span{
   color: #1D2E5B;
   font-family: Roboto;
   font-weight: 500;
@@ -23,7 +26,7 @@
   letter-spacing: 0%;
   text-transform: uppercase;
 }
-.controls button{
+.wrapper button{
   cursor: pointer;
   color: #CCCCCC;
   font-size: 30px;
