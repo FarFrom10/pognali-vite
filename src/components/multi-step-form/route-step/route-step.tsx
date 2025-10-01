@@ -1,18 +1,18 @@
 import { Fragment, useMemo, useState, useEffect, useRef } from 'react';
-import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
+import { Listbox } from '@headlessui/react';
 import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
 import styles from './route-step.module.css';
 import { getFlagForCountry } from '../../../utils/country-flags';
 import { CYRILLIC_ALPHABET } from '../../../const/const';
 import { FormValues } from '../../../schemas/form-schema';
+import CommonIcon from '../../common-icon/common-icon';
 
 type Props = {
   countriesData: Record<string, string[]>;
 };
 
 export default function RouteStep({ countriesData }: Props) {
-  const MAX_COUNTRIES = 4; // <-- ограничение
-  //Нужно для хранения актуального занчения, иначе useEffect создаст 2 селекта
+  const MAX_COUNTRIES = 4;
   const isFirstRender = useRef(true);
 
   const { control, watch } = useFormContext<FormValues>();
@@ -21,7 +21,6 @@ export default function RouteStep({ countriesData }: Props) {
     name: 'countries',
   });
 
-  // "countries" из формы — всегда актуальное состояние массива объектов { value: string }
   const countries = watch('countries');
 
   const allCountries = useMemo(
@@ -31,7 +30,6 @@ export default function RouteStep({ countriesData }: Props) {
 
   const [activeLetter, setActiveLetter] = useState<string>('А');
 
-  //Добавление первого селекта при монтировании компонениа
   useEffect(() => {
     if (isFirstRender.current && countries.length === 0) {
       append({ value: '' });
@@ -39,6 +37,14 @@ export default function RouteStep({ countriesData }: Props) {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onRemoveCountry = (idx: number) => {
+    remove(idx);
+    const isHaveEmptySelect = countries.some((item) => item.value === '');
+    if (countries.length === MAX_COUNTRIES && !isHaveEmptySelect) {
+      append({ value: '' });
+    }
+  };
 
   return (
     <div className={styles.root}>
@@ -53,90 +59,94 @@ export default function RouteStep({ countriesData }: Props) {
                   value={field.value ?? ''}
                   onChange={(v) => {
                     const selected = v?.trim();
-                    const otherValues = countries?.map((c) => c.value).filter((_, i) => i !== idx) ?? [];
+                    const otherValues = countries
+                      ?.map((c) => c.value)
+                      .filter((_, i) => i !== idx) ?? [];
 
                     if (otherValues.includes(selected)) {
-                      // страна уже выбрана в другом селекте → сбрасываем
                       field.onChange('');
                       return;
                     }
 
-                    // сохраняем значение
                     field.onChange(selected);
 
-                    // Если это последний селект и мы выбрали значение,
-                    // — добавим новый пустой только если не достигли MAX.
-                    if (idx === fields.length - 1 && (v ?? '') && fields.length < MAX_COUNTRIES) {
+                    if (
+                      idx === fields.length - 1 &&
+                      (v ?? '') &&
+                      fields.length < MAX_COUNTRIES
+                    ) {
                       append({ value: '' });
                     }
                   }}
                 >
-                  <div className={styles.listboxWrap}>
-                    <ListboxButton className={styles.trigger}>
-                      <span className={field.value ? styles.selectedText : styles.placeholder}>
-                        {field.value || 'Выберите страну'}
-                      </span>
-                      <span className={styles.chev}>▾</span>
-                    </ListboxButton>
-
-                    <ListboxOptions className={styles.options}>
-                      <div className={styles.optionsHeader}>
-                        <div className={styles.headerTitle}>ВЫБЕРИТЕ СТРАНУ</div>
-                        <button
-                          type="button"
-                          className={styles.headerClose}
-                          onClick={() => (document.activeElement as HTMLElement | null)?.blur()}
+                  {({ open }) => (
+                    <div className={styles.listboxWrap}>
+                      <Listbox.Button className={`${styles.trigger} ${open ? styles.triggerActive : ''}`}>
+                        <span
+                          className={styles.selectedText}
                         >
-                          ×
-                        </button>
-                      </div>
+                          {field.value || 'Выберите страну'}
+                        </span>
+                        <span className={styles.chev}>
+                          <CommonIcon name={open ? 'closeSelect' : 'arrowDown'} />
+                        </span>
+                      </Listbox.Button>
 
-                      <div className={styles.optionsBody}>
-                        <div className={styles.letters}>
-                          {CYRILLIC_ALPHABET.map((letter) => (
-                            <button
-                              key={letter}
-                              type="button"
-                              className={`${styles.letterBtn} ${activeLetter === letter ? styles.letterActive : ''}`}
-                              onClick={() => setActiveLetter(letter)}
-                            >
-                              {letter}
-                            </button>
-                          ))}
+                      <Listbox.Options className={styles.options}>
+                        <div className={styles.optionsHeader}>
+                          <div className={styles.headerTitle}>ВЫБЕРИТЕ СТРАНУ</div>
+                          <button
+                            type="button"
+                            className={styles.headerClose}
+                            onClick={() =>
+                              (document.activeElement as HTMLElement | null)?.blur()}
+                          >
+                            ×
+                          </button>
                         </div>
 
-                        <div className={styles.countryList}>
-                          {allCountries
-                            .filter((country) => (country || '').toUpperCase().startsWith(activeLetter))
-                            .map((country) => (
-                              <ListboxOption key={country} value={country} as={Fragment}>
-                                {({ active, selected }) => (
-                                  <div
-                                    className={`${styles.countryRow} ${active ? styles.countryActive : ''} ${selected ? styles.countrySelected : ''}`}
-                                  >
-                                    <span>{country}</span>
-                                  </div>
-                                )}
-                              </ListboxOption>
+                        <div className={styles.optionsBody}>
+                          <div className={styles.letters}>
+                            {CYRILLIC_ALPHABET.map((letter) => (
+                              <button
+                                key={letter}
+                                type="button"
+                                className={`${styles.letterBtn} ${
+                                  activeLetter === letter ? styles.letterActive : ''
+                                }`}
+                                onClick={() => setActiveLetter(letter)}
+                              >
+                                {letter}
+                              </button>
                             ))}
+                          </div>
+
+                          <div className={styles.countryList}>
+                            {allCountries
+                              .filter((country) =>
+                                (country || '').toUpperCase().startsWith(activeLetter)
+                              )
+                              .map((country) => (
+                                <Listbox.Option key={country} value={country} as={Fragment}>
+                                  {({ active, selected }) => (
+                                    <div
+                                      className={`${styles.countryRow} ${
+                                        active ? styles.countryActive : ''
+                                      } ${selected ? styles.countrySelected : ''}`}
+                                    >
+                                      <span>{country}</span>
+                                    </div>
+                                  )}
+                                </Listbox.Option>
+                              ))}
+                          </div>
                         </div>
-                      </div>
-                    </ListboxOptions>
-                  </div>
+                      </Listbox.Options>
+                    </div>
+                  )}
                 </Listbox>
               )}
             />
-
-            <button
-              type="button"
-              className={styles.removeBtn}
-              onClick={() => {
-                // просто удаляем — append будет выполнен в useEffect при необходимости
-                remove(idx);
-              }}
-            >
-              ×
-            </button>
           </div>
         ))}
       </div>
@@ -144,10 +154,10 @@ export default function RouteStep({ countriesData }: Props) {
       <div className={styles.right}>
         <div className={styles.timeline}>
           {fields.map((f, idx) => {
-            const currentValue = countries?.[idx]?.value ?? ''; // <-- из watch
+            const currentValue = countries?.[idx]?.value ?? '';
             return (
               <div key={f.id} className={styles.timelineRow}>
-                <div className={styles.dot} />
+                <div className={`${styles.dot} ${currentValue ? styles.activeDot : ''}`} />
                 {currentValue && (
                   <img
                     src={getFlagForCountry(currentValue)}
@@ -158,11 +168,11 @@ export default function RouteStep({ countriesData }: Props) {
                 <button
                   type="button"
                   className={styles.removeIcon}
-                  onClick={() => remove(idx)}
+                  onClick={() => onRemoveCountry(idx)}
                   aria-label="Удалить страну"
-                  disabled={!countries?.[idx]?.value} // нельзя удалить пустой селект
+                  disabled={!countries?.[idx]?.value}
                 >
-          ×
+                  <CommonIcon name="close" />
                 </button>
               </div>
             );
