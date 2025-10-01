@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const mainFormSchema = z.object({
   tags: z.array(z.string()).min(1, 'Нужно указать хотя бы один тег'),
-  transport: z.array(z.enum(['plane', 'bus', 'bike', 'foot'])),
+  transport: z.array(z.enum(['plane', 'bus', 'bike', 'foot'])).min(1, 'Это обязательное поле'),
   peopleAmount: z.number().min(1, 'Это обязательное поле'),
   duration: z.number().min(1, 'Это обязательное поле'),
   isChildrenAllowed: z.boolean(),

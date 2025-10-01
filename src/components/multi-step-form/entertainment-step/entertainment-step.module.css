@@ -5,36 +5,58 @@
   position: relative;
 }
 
-/* Вертикальная линия справа */
-.wrapper::before {
+.emptyCountries {
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 10%;
+  opacity: 0.5;
+}
+
+/* Убираем глобальную линию! */
+/* .wrapper::before {
   content: '';
   position: absolute;
-  top: 0.5rem;
+  top: 1rem;
   bottom: 6rem;
-  right: 29px; /* сдвигаем, чтобы линия проходила через центр кружков */
+  right: 156px;
   width: 2px;
-  background-color: #1a2440; /* тёмно-синий */
-}
+  background-color: #1a2440;
+} */
 
 .countryBlock {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 37px;
   position: relative;
   padding-right: 3.5rem; /* отступ для линии и кружка */
 }
 
-/* Кружок на линии */
+/* Кружок */
 .countryBlock::before {
   content: '';
   position: absolute;
-  right: 24px;
-  top: 0.5rem;
-  width: 12px;
-  height: 12px;
+  right: 151px;
+  top: 1rem;
+  width: 13px;
+  height: 13px;
   background-color: #1D2E5B;
   border-radius: 50%;
   transition: background-color 0.3s ease;
+  z-index: 1;
+}
+
+/* Вертикальная линия к следующему кружку */
+.countryBlock:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 156px;              /* совпадает по центру с кружком */
+  top: calc(1rem + 13px);    /* сразу под кружком */
+  bottom: -4rem;           /* тянем до следующего блока (gap: 2.5rem) */
+  width: 2px;
+  background-color: #1a2440;
 }
 
 .header {
@@ -44,34 +66,40 @@
 }
 
 .header h4 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1a2440;
-  margin: 0;
+  color: #1D2E5B;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 30px;
+  letter-spacing: 0%;
 }
 
 .flag {
-  width: 36px;
-  height: 24px;
+  width: 70px;
+  height: 47px;
   object-fit: cover;
   border-radius: 4px;
   flex-shrink: 0;
 }
 
 .textarea {
-  width: 100%;
-  min-height: 80px;
-  padding: 0.75rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  resize: vertical;
-  line-height: 1.4;
-  color: #333;
+  max-width: 700px;
+  height: 140px;
+  resize: none;
+  padding: 26px 25px;
+  border: 1px solid #CBCED9;
+  border-radius: 4px;
+
+  color: #444444;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0%;
 }
 
 .textarea::placeholder {
-  color: #a0aec0;
+  opacity: 0.3;
 }
 
 .textarea:focus {

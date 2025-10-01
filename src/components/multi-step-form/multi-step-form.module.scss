@@ -74,8 +74,8 @@
 }
 
 .btnNext {
-    // min-width: func.rem(286);
-    justify-content: flex-start;
+    min-width: func.rem(286);
+    justify-content: space-between;
 
     &::after {
       content: '';
@@ -90,6 +90,14 @@
   background-color: #4D99D6;
 }
 
+.errorMessage {
+  color: red;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  opacity: 0.5;
+}
 
 .stepsList {
   display: flex;
@@ -120,6 +128,12 @@
 .btnContainer {
   display: flex;
   justify-content: space-between;
+}
+
+.btnNextWrapper {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
 
 .title {

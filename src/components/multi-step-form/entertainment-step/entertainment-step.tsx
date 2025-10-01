@@ -12,7 +12,7 @@ function EntertainmentStep() {
   return (
     <div className={styles.wrapper}>
       {!filteredCountries.length &&
-      <div>Выберите страну на предыдущем шаге</div>}
+      <div className={styles.emptyCountries}>Выберите страну на предыдущем шаге</div>}
 
       {filteredCountries.map((c) => (
         <div key={c.value} className={styles.countryBlock}>

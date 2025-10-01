@@ -13,7 +13,7 @@ import { FormValues } from '../../schemas/form-schema';
 function MultiStepForm() {
   const steps = Object.values(FormStepName);
   const { data: countries } = useCountriesQuery();
-  const { trigger, reset } = useFormContext<FormValues>();
+  const { trigger, reset, formState, setError } = useFormContext<FormValues>();
 
   const [step, {
     goToNextStep,
@@ -31,20 +31,9 @@ function MultiStepForm() {
       const isValid = await trigger();
 
       if (!isValid) {
+        setError('root', { type: 'manual', message: 'Заполните все поля формы' });
         return; // остаёмся на последнем шаге, если есть ошибки
       }
-
-      //Удаление возможных объектов с пустой строкой в поле value
-      // const allValues = getValues(); - импортировать из useFormContext()
-      // const filteredCountries = allValues.countries.filter(
-      //   (c) => c.value.trim() !== ''
-      // );
-
-      //Используем в post запросе для размещения данных карточки
-      // const payload = {
-      //   ...allValues,
-      //   countries: filteredCountries,
-      // };
 
       reset();
       resetStep();
@@ -79,13 +68,21 @@ function MultiStepForm() {
       </div>
 
       <div className={styles.btnContainer}>
-        <button
-          type="button"
-          className={`${styles.btn} ${styles.btnNext}`}
-          onClick={() => void onNextStep()}
-        >
-          {step === steps.length ? 'Отправить' : 'Следующий шаг'}
-        </button>
+        <div className={styles.btnNextWrapper}>
+          <button
+            type="button"
+            className={`${styles.btn} ${styles.btnNext}`}
+            onClick={() => void onNextStep()}
+          >
+            {step === steps.length ? 'Отправить' : 'Следующий шаг'}
+          </button>
+
+          {formState.errors.root && step === 3 && (
+            <span className={styles.errorMessage}>
+              {formState.errors.root.message}
+            </span>
+          )}
+        </div>
 
         {canGoToPrevStep && (
           <button
