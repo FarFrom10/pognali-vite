@@ -8,8 +8,14 @@
     display: flex;
     align-items: center;
     margin-bottom: func.rem(74);
+    gap: func.rem(5);
     text-transform: uppercase;
     color: var(--color-bg-secondary);
+    transition: margin-bottom 0.25s ease;
+
+    &.collapsed {
+      margin-bottom: 0;
+    }
 
     .icon {
       width: func.rem(24);
@@ -26,7 +32,7 @@
 
     .categories {
       display: flex;
-      gap: func.rem(5);
+      gap: func.rem(23);
 
       button {
         padding: func.rem(4);
@@ -49,7 +55,6 @@
 
         &.active {
           opacity: 1;
-          cursor: default;
         }
       }
     }
@@ -63,6 +68,18 @@
     margin-bottom: func.rem(50);
     margin-right: func.rem(140);
     text-align: left;
+
+    // для анимации
+    max-height: 2000px; // достаточно большое значение
+    opacity: 1;
+    overflow: hidden;
+    transition: all 0.25s ease;
+
+    &.collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-bottom: 0; // убираем зазор, когда свернуто
+    }
 
     .letterCell {
       display: flex;
@@ -84,6 +101,7 @@
         font-weight: 700;
         text-transform: uppercase;
         color: var(--color-text-main);
+        cursor: default;
       }
 
       .countries {
@@ -101,6 +119,10 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+      }
+
+      .countryActive {
+        font-weight: 700;
       }
 
       &.disabled {
@@ -124,11 +146,12 @@
     font-weight: 700;
     font-family: $ff-roboto;
     border: none;
-    border-radius: func.rem(8);
+    border-radius: func.rem(20);
     color: var(--color-bg-secondary);
-    background: var(--color-bg-btn);
+    background: #D6DAED;
     text-transform: uppercase;
     cursor: pointer;
+    transition: all ease 0.25s;
 
     img {
       padding-bottom: func.rem(2);
@@ -138,7 +161,11 @@
     }
 
     &:hover {
-      background: var(--color-bg-btn-hover);
+      background: #C8CEE8;
+    }
+
+    .collapseBtnText {
+      transition: all ease 0.2s;
     }
 
     &:active .collapseBtnText,

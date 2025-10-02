@@ -3,40 +3,96 @@ import IconClose from '/images/assets/icons/icon-close-dark.svg';
 import IconFilter from '/images/assets/icons/icon-filter.svg';
 import Container from '../container/container';
 import { CYRILLIC_ALPHABET } from '../../const/const';
+import { useState } from 'react';
 
 type Props = {
   countries: Record<string, string[]>;
-}
+};
 
 function CountryFilter({ countries }: Props) {
+  // Состояние активных категорий
+  const [activeCategories, setActiveCategories] = useState<string[]>([]);
+  const CATEGORY_ORDER = ['Европа', 'Азия', 'Америка', 'Острова'];
+
+  // выбранные страны
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+
+  // состояние свёрнутого списка
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  // тоггл категории
+  const toggleCategory = (category: string) => {
+    setActiveCategories((prev) =>
+      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
+    );
+  };
+
+  // тоггл страны
+  const toggleCountry = (country: string) => {
+    setSelectedCountries((prev) =>
+      prev.includes(country) ? prev.filter((c) => c !== country) : [...prev, country]
+    );
+  };
+
+  // список стран для отображения
+  const visibleCountries =
+    activeCategories.length > 0
+      ? activeCategories.map((cat) => countries[cat]).flat()
+      : Object.values(countries).flat();
+
   return (
     <section className={styles.countryFilter}>
       <Container>
         {/* Фильтры */}
-        <div className={styles.header}>
-          <img src={IconFilter} alt="filter" className={styles.icon} /> {/* по тз похоже что кнопка, но реализации в макете нет */}
+        <div className={`${styles.header} ${isCollapsed ? styles.collapsed : ''}`}>
+          <img src={IconFilter} alt="filter" className={styles.icon} />
           <span className={styles.label}>Фильтрация по странам:</span>
           <nav className={styles.categories}>
-            <button className={styles.active}>Европа</button>
-            <button>Азия</button>
-            <button>Америка</button>
-            <button>Острова</button>
+            {CATEGORY_ORDER.map((category) =>
+              countries[category] ? (
+                <button
+                  key={category}
+                  className={activeCategories.includes(category) ? styles.active : ''}
+                  onClick={() => toggleCategory(category)}
+                >
+                  {category}
+                </button>
+              ) : null
+            )}
           </nav>
         </div>
 
         {/* Сетка */}
-        <div className={styles.alphabetGrid}>
+        <div
+          className={`${styles.alphabetGrid} ${
+            isCollapsed ? styles.collapsed : ''
+          }`}
+        >
           {CYRILLIC_ALPHABET.map((letter) => {
-            const letterCountries = Object.values(countries).flat().filter(
-              (c) => c.toLowerCase() === letter
+            const letterCountries = visibleCountries.filter(
+              (c) => c[0].toLowerCase() === letter.toLowerCase()
             );
+
+            if (letterCountries.length === 0) {
+              return null;
+            }
 
             return (
               <div key={letter} className={styles.letterCell}>
                 <span className={styles.letter}>{letter.toUpperCase()}</span>
                 <div className={styles.countries}>
                   {letterCountries.map((c) => (
-                    <span key={c} className={styles.country}>
+                    <span
+                      key={c}
+                      className={`${styles.country} ${
+                        selectedCountries.includes(c) ? styles.countryActive : ''
+                      }`}
+                      onClick={() => toggleCountry(c)}
+                    >
                       {c}
                     </span>
                   ))}
@@ -47,9 +103,14 @@ function CountryFilter({ countries }: Props) {
         </div>
 
         {/* Кнопка */}
-        <button className={styles.collapseBtn}>
+        <button
+          className={styles.collapseBtn}
+          onClick={toggleCollapse}
+        >
           <img src={IconClose} alt="close" />
-          <span className={styles.collapseBtnText}>Свернуть</span>
+          <span className={styles.collapseBtnText}>
+            {isCollapsed ? 'Развернуть' : 'Свернуть'}
+          </span>
         </button>
       </Container>
     </section>
