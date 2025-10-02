@@ -4,38 +4,27 @@ import IconFilter from '/images/assets/icons/icon-filter.svg';
 import Container from '../container/container';
 import { CYRILLIC_ALPHABET } from '../../const/const';
 import { useState } from 'react';
+import { useCountryFilter } from '../../context/county-filter/use-country-filter';
 
 type Props = {
   countries: Record<string, string[]>;
 };
 
 function CountryFilter({ countries }: Props) {
-  // Состояние активных категорий
-  const [activeCategories, setActiveCategories] = useState<string[]>([]);
-  const CATEGORY_ORDER = ['Европа', 'Азия', 'Америка', 'Острова'];
+  const {
+    activeCategories,
+    toggleCategory,
+    selectedCountries,
+    toggleCountry
+  } = useCountryFilter();
 
-  // выбранные страны
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const CATEGORY_ORDER = ['Европа', 'Азия', 'Америка', 'Острова'];
 
   // состояние свёрнутого списка
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
-  };
-
-  // тоггл категории
-  const toggleCategory = (category: string) => {
-    setActiveCategories((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
-    );
-  };
-
-  // тоггл страны
-  const toggleCountry = (country: string) => {
-    setSelectedCountries((prev) =>
-      prev.includes(country) ? prev.filter((c) => c !== country) : [...prev, country]
-    );
   };
 
   // список стран для отображения
