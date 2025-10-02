@@ -28,7 +28,7 @@ function FormPage() {
     <FormProvider {...methods}>
       <div className={styles.formPage}>
         <Header />
-        <PageHero title="Направления" />
+        <PageHero title="Направления" isFormPage/>
 
         <div className={styles.wrapper}>
           <main className={styles.main}>

@@ -14,6 +14,7 @@ type Props = {
 export default function RouteStep({ countriesData }: Props) {
   const MAX_COUNTRIES = 4;
   const isFirstRender = useRef(true);
+  console.log(countriesData);
 
   const { control, watch } = useFormContext<FormValues>();
   const { fields, append, remove } = useFieldArray<FormValues>({

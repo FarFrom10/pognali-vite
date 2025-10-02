@@ -1,0 +1,15 @@
+@use '../../../styles/func.scss' as func;
+
+.catalogPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .main {
+    // background-color: var(--color-bg-additional-light);
+    // border-radius: func.rem(60);
+    padding: func.rem(55) 0;
+    flex: 1;
+  }
+
+}

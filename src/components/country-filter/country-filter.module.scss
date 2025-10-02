@@ -1,0 +1,156 @@
+@use '../../styles/func.scss' as func;
+@use '../../styles/variables.scss' as *;
+
+.countryFilter {
+  padding: func.rem(24) 0;
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: func.rem(74);
+    text-transform: uppercase;
+    color: var(--color-bg-secondary);
+
+    .icon {
+      width: func.rem(24);
+      height: func.rem(24);
+      flex-shrink: 0;
+    }
+
+    .label {
+      font-size: func.rem(20);
+      line-height: func.rem(20);
+      font-weight: 700;
+      margin-left: func.rem(20);
+    }
+
+    .categories {
+      display: flex;
+      gap: func.rem(5);
+
+      button {
+        padding: func.rem(4);
+        cursor: pointer;
+        font-size: func.rem(20);
+        line-height: func.rem(20);
+        white-space: nowrap;
+        text-transform: uppercase;
+        font-family: $ff-roboto;
+        font-weight: 700;
+        border: none;
+        background-color: transparent;
+        color: var(--color-bg-secondary);
+        opacity: 0.3;
+        transition: opacity $transition;
+
+        &:hover {
+          opacity: 0.6;
+        }
+
+        &.active {
+          opacity: 1;
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  // Сетка
+  .alphabetGrid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: func.rem(16);
+    margin-bottom: func.rem(50);
+    margin-right: func.rem(140);
+    text-align: left;
+
+    .letterCell {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: func.rem(8);
+      padding: func.rem(12);
+      background: transparent;
+      box-sizing: border-box;
+      transition: background-color $transition;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .letter {
+        font-size: func.rem(60);
+        line-height: func.rem(60);
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--color-text-main);
+      }
+
+      .countries {
+        display: flex;
+        flex-direction: column;
+        gap: func.rem(6);
+        width: 100%;
+        padding-right: func.rem(8);
+        color: var(--color-default-grey);
+      }
+
+      .country {
+        font-size: func.rem(16);
+        line-height: func.rem(20);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      &.disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .collapseBtn {
+    width: 100%;
+    min-height: func.rem(100);
+    margin-top: func.rem(18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: func.rem(17);
+    padding: func.rem(37);
+    font-size: func.rem(20);
+    line-height: func.rem(20);
+    font-weight: 700;
+    font-family: $ff-roboto;
+    border: none;
+    border-radius: func.rem(8);
+    color: var(--color-bg-secondary);
+    background: var(--color-bg-btn);
+    text-transform: uppercase;
+    cursor: pointer;
+
+    img {
+      padding-bottom: func.rem(2);
+      width: func.rem(22);
+      height: func.rem(24);
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background: var(--color-bg-btn-hover);
+    }
+
+    &:active .collapseBtnText,
+    &:active img {
+      opacity: 0.3;
+    }
+  }
+
+  // Набросок на будущее
+  @media (max-width: 1024px) {
+    .alphabetGrid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}

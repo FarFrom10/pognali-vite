@@ -2,7 +2,6 @@
 @use '../../styles/func' as func;
 
 .pageHero {
-
   .headerBlock {
     background-color: var(--color-bg-secondary);
     border-radius: 0 0 func.rem(60) func.rem(60);
@@ -10,7 +9,6 @@
     padding-top: 74px;
     position: relative;
     text-align: left;
-
 
     .title {
       font-size: func.rem(60);
@@ -33,58 +31,6 @@
         width: calc(100% - 20px);
         background: var(--color-btn-hover);
         border-radius: func.rem(4);
-      }
-    }
-  }
-
-  // Контентный блок
-  .contentBlock {
-    margin-top: func.rem(69);
-    margin-bottom: func.rem(50);
-
-    .contentInner {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: func.rem(20);
-      position: relative;
-    }
-
-    .tagsHero {
-      padding-left: func.rem(64);
-    }
-
-    .levelHero {
-      top: func.rem(-220);
-      right: func.rem(400);
-      overflow: hidden;
-      position: absolute;
-    }
-
-    .avatarHero {
-      top: func.rem(-260);
-      right: func.rem(138);
-      position: absolute;
-    }
-  }
-
-  // Адаптив набросок
-  @media (max-width: $tablet) {
-    .contentBlock {
-      .contentInner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .avatarWrapper {
-        width: func.rem(80);
-        height: func.rem(80);
-        margin-top: func.rem(16);
-      }
-
-      .level {
-        font-size: func.rem(14);
-        margin-top: func.rem(8);
       }
     }
   }
