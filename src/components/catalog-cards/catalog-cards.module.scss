@@ -1,5 +1,8 @@
 @use '../../styles/func.scss' as func;
 
 .cardsWrapper {
-  padding-top: func.rem(48);
+  display: flex;
+  flex-direction: column;
+  gap: func.rem(30);
+  width: 100%;
 }

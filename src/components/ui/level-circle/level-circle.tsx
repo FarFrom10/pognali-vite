@@ -7,9 +7,12 @@ interface CSSVariables extends React.CSSProperties {
   '--number-color'?: string;
   '--divider-color'?: string;
   '--label-color'?: string;
+  '--value-font-size'?: string;
+  '--label-font-size'?: string;
+  '--divider-width'?: string;
+  '--divider-margin'?: string;
+  '--divider-margin-top'?: string;
 }
-
-
 type Props = {
   value?: number;
   size?: number;
@@ -18,6 +21,11 @@ type Props = {
   numberColor?: string;
   dividerColor?: string;
   labelColor?: string;
+  valueFontSize?: number;
+  labelFontSize?: number;
+  dividerWidth?: number;
+  dividerMargin?: string;
+  dividerMarginTop?: string;
   className?: string;
 }
 
@@ -29,6 +37,11 @@ const LevelCircle = ({
   numberColor = 'var(--color-default-white)',
   dividerColor = 'var(--color-default-white)',
   labelColor = 'var(--color-default-white)',
+  valueFontSize,
+  labelFontSize,
+  dividerWidth,
+  dividerMargin,
+  dividerMarginTop,
   className = ''
 }: Props) => {
   const radius = (size - stroke) / 2;
@@ -44,7 +57,12 @@ const LevelCircle = ({
         '--circle-color': circleColor,
         '--number-color': numberColor,
         '--divider-color': dividerColor,
-        '--label-color': labelColor
+        '--label-color': labelColor,
+        '--value-font-size': valueFontSize ? `${valueFontSize}px` : undefined,
+        '--label-font-size': labelFontSize ? `${labelFontSize}px` : undefined,
+        '--divider-width': dividerWidth ? `${dividerWidth}px` : undefined,
+        '--divider-margin': dividerMargin,
+        '--divider-margin-top': dividerMarginTop
       } as CSSVariables}
     >
       <svg width={size} height={size}>

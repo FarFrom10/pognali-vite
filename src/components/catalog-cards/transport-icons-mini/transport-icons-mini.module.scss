@@ -1,0 +1,77 @@
+@use '../../../styles/func.scss' as func;
+
+.transportIconsWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background: var(--color-bg-main);
+    // padding: func.rem(5) func.rem(20);
+    font-size: func.rem(30);
+    font-weight: 500;
+    color: var(--color-text-additional);
+    border-radius: func.rem(6);
+    line-height: 1;
+    pointer-events: none;
+    text-transform: uppercase;
+  }
+
+  .iconsContainer {
+    width: 100%;
+    // border: 1px solid #ccc;
+    display: flex;
+    gap: func.rem(0);
+    flex-wrap: wrap;
+    background: transparent;
+  }
+
+  .iconWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: func.rem(8);
+    position: relative;
+    border: none;
+
+    .icon {
+      width: func.rem(38);
+      height: func.rem(38);
+      border-radius: 50%;
+      background-color: var(--color-default-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: func.rem(8);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        transition: filter 0.2s;
+        opacity: 0.15 !important;
+      }
+    }
+
+    .label {
+      font-size: func.rem(14);
+      line-height: 1.2;
+      color: var(--color-text-additional);
+      text-align: center;
+    }
+
+    &.active {
+      .icon {
+        img {
+          opacity: 1 !important;
+        }
+      }
+
+    }
+  }
+}

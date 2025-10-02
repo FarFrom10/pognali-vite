@@ -12,4 +12,11 @@
     flex: 1;
   }
 
+  .cardsContainer {
+    padding-top: func.rem(48);
+    display: flex;
+    gap: func.rem(12);
+    justify-content: space-between;
+  }
+
 }

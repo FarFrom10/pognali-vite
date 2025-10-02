@@ -7,6 +7,7 @@ import { CountryFilterProvider } from '../../../context/county-filter/country-fi
 import Footer from '../../../components/footer/footer';
 import CatalogCards from '../../../components/catalog-cards/catalog-cards';
 import { useCompanionsQuery } from '../../../hooks/api/use-companions-query';
+import Container from '../../../components/container/container';
 
 function CatalogPage () {
   const { data: countries } = useCountriesQuery();
@@ -20,11 +21,13 @@ function CatalogPage () {
         <PageHero title="Попутчики" />
 
         <main className={styles.main}>
-          {countries && <CountryFilter countries={countries.locations}/>}
-          <div className={styles.cardsContainer}>
-            {companions && <CatalogCards companionsData={companions}/>}
-            {/* {блок фильтрации} */}
-          </div>
+          <Container>
+            {countries && <CountryFilter countries={countries.locations}/>}
+            <div className={styles.cardsContainer}>
+              {companions && <CatalogCards companionsData={companions}/>}
+              {/* {блок фильтрации} */}
+            </div>
+          </Container>
         </main>
 
         <Footer />
