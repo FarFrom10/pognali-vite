@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { useStep } from 'usehooks-ts';
-import { FormStepName } from '../../const/enum';
+import { AppRoute, FormStepName } from '../../const/enum';
 import styles from './multi-step-form.module.scss';
 import { formStepText } from '../../const/const';
 import DatesStep from './dates-step/dates-step';
@@ -8,9 +8,12 @@ import RouteStep from './route-step/route-step';
 import { useCountriesQuery } from '../../hooks/api/use-countires-query';
 import EntertainmentStep from './entertainment-step/entertainment-step';
 import { FormValues } from '../../schemas/form-schema';
+import { useNavigate } from 'react-router-dom';
 
 
 function MultiStepForm() {
+  const navigate = useNavigate();
+
   const steps = Object.values(FormStepName);
   const { data: countries } = useCountriesQuery();
   const { trigger, reset, formState, setError } = useFormContext<FormValues>();
@@ -37,6 +40,7 @@ function MultiStepForm() {
 
       reset();
       resetStep();
+      navigate(AppRoute.Catalog);
     }
   };
 

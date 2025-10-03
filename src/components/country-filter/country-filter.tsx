@@ -21,7 +21,7 @@ function CountryFilter({ countries }: Props) {
   const CATEGORY_ORDER = ['Европа', 'Азия', 'Америка', 'Острова'];
 
   // состояние свёрнутого списка
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
