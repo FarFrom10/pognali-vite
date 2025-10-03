@@ -8,7 +8,7 @@ export const fetchCountries = async (): Promise<Countries> => {
 };
 
 export const fetchFilteredCompanions = async (
-  filters?: CompanionsFilter
+  filters?: CompanionsFilter,
 ): Promise<CompanionPagination> => {
   const params = new URLSearchParams();
 

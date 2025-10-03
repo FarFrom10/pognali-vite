@@ -4,6 +4,8 @@ import BusIcon from '/images/assets/icons/icon-bus.svg';
 import BikeIcon from '/images/assets/icons/icon-bike.svg';
 import FootIcon from '/images/assets/icons/icon-foot.svg';
 
+export const DEFAULT_CARDS_AMOUNT = 4;
+
 export const ValidNumbers = {
   People : { min: 1, max: 10 },
   Duration : { min: 2, max: 31 },
