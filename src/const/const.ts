@@ -5,6 +5,7 @@ import BikeIcon from '/images/assets/icons/icon-bike.svg';
 import FootIcon from '/images/assets/icons/icon-foot.svg';
 
 export const DEFAULT_CARDS_AMOUNT = 4;
+export const MAX_CARDS_PER_SERVER_PAGE = 10;
 
 export const ValidNumbers = {
   People : { min: 1, max: 10 },

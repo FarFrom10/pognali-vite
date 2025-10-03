@@ -6,3 +6,35 @@
   gap: func.rem(30);
   width: 100%;
 }
+
+.showMoreBtn{
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: func.rem(24);
+  border: none;
+  cursor: pointer;
+  height: func.rem(26);
+  margin-top: func.rem(30);
+
+  color: #1D2E5B;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: func.rem(20);
+  line-height: func.rem(20);
+  letter-spacing: 0%;
+  text-transform: uppercase;
+  transition: all ease 0.25s;
+
+  & span {
+    transition: all ease 0.25s;
+  }
+
+  &:hover span{
+    opacity: 0.6;
+  }
+
+  &:active span {
+    opacity: 0.3;
+  }
+}
