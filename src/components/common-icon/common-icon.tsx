@@ -44,7 +44,7 @@ const icons = {
   )
 };
 
-export type IconName = keyof typeof icons;
+type IconName = keyof typeof icons;
 
 type Props = {
   name: IconName;
