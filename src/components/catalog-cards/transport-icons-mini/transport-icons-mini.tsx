@@ -1,33 +1,18 @@
 import styles from './transport-icons-mini.module.scss';
 import { transportConfig } from '../../../const/const';
-import { TransportId } from '../../../types/form';
+import { TransportType } from '../../../types/transport-type.enum';
 
 type Props = {
   withBorder?: boolean;
-  activeTransport: string;
-};
-
-const transportAlias: Record<string, TransportId> = {
-  авиаперелет: 'plane',
-  самолет: 'plane',
-  авиарейс: 'plane',
-  автобус: 'bus',
-  автотранспорт: 'bus',
-  велосипед: 'bike',
-  вело: 'bike',
-  пешком: 'foot',
-  ходьба: 'foot',
+  activeTransport: string; // строка из сервера, например "Самолет"
 };
 
 function TransportIconsMini({
   withBorder = false,
   activeTransport,
 }: Props) {
-  const transportTypes: TransportId[] = ['plane', 'bus', 'bike', 'foot'];
-
-  // Нормализуем строку (убираем пробелы, приводим к нижнему регистру)
-  const normalized = activeTransport.trim().toLowerCase();
-  const normalizedId = transportAlias[normalized];
+  // Получаем ключи enum как массив типов TransportType
+  const transportTypes = Object.keys(TransportType) as Array<keyof typeof TransportType>;
 
   return (
     <div
@@ -42,7 +27,8 @@ function TransportIconsMini({
             return null;
           }
 
-          const isActive = normalizedId === id;
+          // Сравниваем значение enum с activeTransport
+          const isActive = String(TransportType[id]) === String(activeTransport);
 
           return (
             <div

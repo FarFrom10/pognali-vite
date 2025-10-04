@@ -17,3 +17,12 @@ export type CompanionsFilter = {
   transportType?: string[];
   foods?: string[];
 };
+
+export type ExtraFilters = {
+  hobbies: string[];
+  musics: string[];
+  foods: string[];
+  transportType: string[];
+  minLevel: number;
+  maxLevel: number;
+}

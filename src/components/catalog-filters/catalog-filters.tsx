@@ -9,14 +9,29 @@ import { CheckboxFilter } from './checkbox-filter/checkbox-filter';
 import RangeFilter from './range-filter/range-filter';
 import TransportIcons from '../ui/transport-icons/transport-icons';
 import { TransportType } from '../../types/transport-type.enum';
+import { ExtraFilters } from '../../types/api';
 
-function CatalogFilters() {
+type Props = {
+  onApplyFilters: (filters: ExtraFilters) => void; // можно типизировать точнее
+};
+
+function CatalogFilters({ onApplyFilters }: Props) {
   const [hobby, setHobby] = useState<(keyof typeof HobbyType)[]>([]);
   const [music, setMusic] = useState<(keyof typeof MusicType)[]>([]);
   const [food, setFood] = useState<(keyof typeof FoodType)[]>([]);
   const [transport, setTransport] = useState<(keyof typeof TransportType)[]>([]);
   const [level, setLevel] = useState<[number, number]>([30, 100]);
-  console.log(transport);
+
+  const onFiltersSubmit = () => {
+    onApplyFilters({
+      hobbies: hobby,
+      musics: music,
+      foods: food,
+      transportType: transport,
+      minLevel: level[0],
+      maxLevel: level[1]
+    });
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -49,7 +64,7 @@ function CatalogFilters() {
         </FilterShell>
       </div>
 
-      <button className={styles.submit}>Показать</button>
+      <button onClick={onFiltersSubmit} className={styles.submit}>Показать</button>
     </div>
   );
 }
