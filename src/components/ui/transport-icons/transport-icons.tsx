@@ -10,14 +10,16 @@ type Props = {
   transportTypes?: TransportId[];
   label?: string;
   withBorder?: boolean;
+  withHover?: boolean;
   className?: string;
 };
 
 const TransportIcons = ({
   value,
-  transportTypes = ['plane', 'bus', 'bike', 'foot'],
+  transportTypes = ['AIRPLANE', 'BUS', 'BICYCLE', 'WALKING'],
   label = 'Транспорт',
   withBorder = false,
+  withHover = false,
   className = '',
   onChange,
 }: Props) => {
@@ -52,8 +54,8 @@ const TransportIcons = ({
               type="button"
               className={`${styles.iconWrapper} ${isActive ? styles.active : ''}`}
               onClick={() => toggleTransport(id)}
-              onMouseEnter={() => setHovered(id)}
-              onMouseLeave={() => setHovered(null)}
+              onMouseEnter={() => withHover && setHovered(id)}
+              onMouseLeave={ () => withHover && setHovered(null)}
             >
               <div className={styles.icon}>
                 <img

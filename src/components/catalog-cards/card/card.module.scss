@@ -7,7 +7,7 @@
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
-  width: 100%;
+  max-width: func.rem(950);
   font-family: sans-serif;
   min-height: func.rem(285);
   height: 100%;

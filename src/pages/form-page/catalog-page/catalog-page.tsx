@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { DEFAULT_CARDS_AMOUNT, MAX_CARDS_PER_SERVER_PAGE } from '../../../const/const';
 import { translateArray } from '../../../utils/country';
 import { continentDictionary, countryDictionary } from '../../../const/dictionary';
+import CatalogFilters from '../../../components/catalog-filters/catalog-filters';
 
 function CatalogPage () {
   const { activeCategories, selectedCountries } = useCountryFilter();
@@ -54,12 +55,12 @@ function CatalogPage () {
                 ? <Loader/>
                 : companions &&
                 <CatalogCards
-                  isButtonVisible={amount !== MAX_CARDS_PER_SERVER_PAGE}
+                  isButtonVisible={amount < MAX_CARDS_PER_SERVER_PAGE}
                   onShowMore={handleShowMore}
                   companionsData={companions}
                 />
             }
-            {/* {блок фильтрации} */}
+            <CatalogFilters/>
           </div>
         </Container>
       </main>

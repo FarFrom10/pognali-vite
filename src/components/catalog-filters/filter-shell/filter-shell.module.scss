@@ -1,0 +1,37 @@
+@use '../../../styles/func.scss' as func;
+
+.wrapper {
+}
+
+.headerButton {
+  position: relative;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  color: #1D2E5B;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: func.rem(20);
+  line-height: func.rem(22);
+  letter-spacing: 0%;
+  text-transform: uppercase;
+}
+
+.arrow {
+  display: inline-flex;
+  width: func.rem(10);
+  height: func.rem(6);
+  border-left: func.rem(5) solid transparent;
+  border-right: func.rem(5) solid transparent;
+  border-top: func.rem(6) solid var(--color-text-main);
+  transform-origin: center center; // вращение по центру
+}
+
+.content {
+  overflow: hidden;
+}

@@ -14,10 +14,10 @@ export const ValidNumbers = {
 } as const;
 
 export const transportConfig = {
-  plane: { icon: PlaneIcon, label: 'Авиаперелет' },
-  bus: { icon: BusIcon, label: 'Автотранспорт' },
-  bike: { icon: BikeIcon, label: 'Велосипед' },
-  foot: { icon: FootIcon, label: 'Пешком' },
+  AIRPLANE: { icon: PlaneIcon, label: 'Авиаперелет' },
+  BUS: { icon: BusIcon, label: 'Автотранспорт' },
+  BICYCLE: { icon: BikeIcon, label: 'Велосипед' },
+  WALKING: { icon: FootIcon, label: 'Пешком' },
 };
 
 export const formStepText = {

@@ -15,8 +15,8 @@
   .cardsContainer {
     padding-top: func.rem(48);
     display: flex;
-    gap: func.rem(12);
+    // grid-template-columns: 1fr func.rem(300);
+    gap: func.rem(85);
     justify-content: space-between;
   }
-
 }
