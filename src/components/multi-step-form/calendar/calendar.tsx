@@ -5,7 +5,6 @@ import { ru } from 'date-fns/locale';
 import { useCallback } from 'react';
 import { FormValues } from '../../../schemas/form-schema';
 
-
 function Calendar() {
   const { control } = useFormContext<FormValues>();
 
@@ -54,11 +53,12 @@ function Calendar() {
                 }
                 : undefined
             }
-            onSelect={(range) =>
+            onSelect={(range) => {
               field.onChange({
                 from: range?.from ?? null,
                 to: range?.to ?? null,
-              })}
+              });
+            }}
             weekStartsOn={1}
             showOutsideDays
             modifiers={{ tentativeStart }}
