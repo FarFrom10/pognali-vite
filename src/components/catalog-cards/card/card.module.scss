@@ -137,6 +137,7 @@
     border-radius: func.rem(25);
     padding: func.rem(17) func.rem(26);
     border: none;
+    cursor: pointer;
 
     color: #161C35;
     font-family: Roboto;
@@ -151,7 +152,7 @@
     position: relative;
     border: none;
     background: none;
-    cursor: auto;
+    cursor: pointer;
 
   &::before {
     content: "";
