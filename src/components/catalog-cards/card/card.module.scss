@@ -138,6 +138,7 @@
     padding: func.rem(17) func.rem(26);
     border: none;
     cursor: pointer;
+    transition: all ease 0.25s;
 
     color: #161C35;
     font-family: Roboto;
@@ -146,6 +147,10 @@
     line-height: 20px;
     letter-spacing: 0%;
     text-transform: uppercase;
+
+    &:hover {
+      background-color: #4D99D6;
+    }
   }
 
   .heart {
@@ -171,6 +176,14 @@
     position: relative;
     z-index: 1;
   }
+
+  svg {
+    opacity: 0.5;
+    transition: all ease 0.25s;
+  }
+  &:hover svg{
+      opacity: 1;
+    }
 }
 
   .likes {
