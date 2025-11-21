@@ -1,6 +1,10 @@
 # Pognali — сервис поиска попутчиков
 
 **Live Demo:** https://pognali-vite.vercel.app/  
+**Screenshots:** 
+  https://github.com/user-attachments/assets/25c70ab2-a02e-445b-8915-2ec314dcb569 
+  https://github.com/user-attachments/assets/c1841881-86ed-4464-b983-64eb2873b19e
+  
 **Stack:** React, TypeScript, React Router, React Hook Form, Zod, TanStack Query, Axios, usehooks-ts, React Day Picker.  
 Адаптивная версия отсутствует (только десктоп).
 
